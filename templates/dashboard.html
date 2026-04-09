@@ -1,0 +1,194 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    .dashboard-wrapper {
+        min-height: 100vh;
+        background: #fdfaf7;
+        padding-top: 120px;
+        padding-bottom: 80px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 1.8fr 1.2fr;
+        gap: 30px;
+    }
+
+    /* BOLDER HEADER */
+    .dashboard-header {
+        grid-column: span 2;
+        margin-bottom: 50px;
+        border-left: 8px solid #c88d52; /* Strong Gold Accent */
+        padding-left: 25px;
+    }
+
+    .dashboard-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 4rem; /* Extra Large */
+        font-weight: 900;
+        color: #1a2a1d;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: -2px;
+    }
+
+    /* SOLID PANEL CARDS */
+    .panel-card {
+        background: white;
+        border-radius: 20px;
+        padding: 45px;
+        box-shadow: 0 20px 60px rgba(26, 42, 29, 0.08); /* Stronger Shadow */
+        border: 1px solid rgba(200, 141, 82, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* UPLOAD AREA - SOLID & EYE-CATCHING */
+    .upload-box {
+        border: 3px dashed #c88d52; /* Thicker Border */
+        background: #fffcf9;
+        border-radius: 15px;
+        padding: 80px 20px; /* More Padding */
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        margin-top: 25px;
+    }
+
+    .upload-box:hover { 
+        background: #f7eee4; 
+        border-style: solid;
+        transform: translateY(-5px);
+    }
+
+    .btn-analyze {
+        width: 100%;
+        background: #1a2a1d; /* Solid Dark Green */
+        color: white;
+        border: none;
+        padding: 22px;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+        cursor: pointer;
+        margin-top: 30px;
+        transition: 0.3s;
+        box-shadow: 0 10px 20px rgba(26, 42, 29, 0.2);
+    }
+
+    .btn-analyze:hover { 
+        background: #c88d52; 
+        box-shadow: 0 15px 30px rgba(200, 141, 82, 0.3);
+    }
+
+    /* STATS & PROGRESS */
+    .progress-container { margin-top: 30px; }
+    .progress-label {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #1a2a1d;
+    }
+    .progress-bar-bg { background: #f0f0f0; height: 12px; border-radius: 20px; }
+    .progress-fill { height: 100%; border-radius: 20px; }
+
+    .tag-gold {
+        color: #c88d52;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        font-size: 0.8rem;
+    }
+
+    .status-badge {
+        background: #1a2a1d;
+        color: #fff;
+        padding: 8px 15px;
+        border-radius: 0 0 0 15px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+</style>
+
+<div class="dashboard-wrapper">
+    <div class="container">
+        
+        <header class="dashboard-header">
+            <span class="tag-gold">Internal Access Only</span>
+            <h1>DASHBOARD</h1>
+            <p style="color: #444; font-size: 1.2rem; font-weight: 500;">
+                Welcome, <strong>{{ user_name if user_name else "Researcher" }}</strong>. Ready for high-precision bio-acoustic mapping.
+            </p>
+        </header>
+
+        <div class="panel-card">
+            <div class="status-badge">ENGINE ACTIVE</div>
+            <h2 style="font-family: 'Playfair Display'; font-size: 2.2rem; color: #1a2a1d;">Run New Analysis</h2>
+            <p style="color: #666;">Drop your .wav or .mp3 files here to start the classification engine.</p>
+            
+            <form action="/analyze" method="POST" enctype="multipart/form-data">
+                <input type="file" name="audio_file" accept="audio/*" id="audio-input" style="display: none;">
+                <label for="audio-input">
+                    <div class="upload-box" id="drop-zone">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">🔊</div>
+                        <span style="color: #1a2a1d; font-weight: 800; font-size: 1.2rem; text-transform: uppercase;">Upload Field Recording</span>
+                        <p id="file-name" style="margin-top: 20px; font-weight: 700; color: #c88d52; font-size: 1rem; display: none;"></p>
+                    </div>
+                </label>
+                <button type="submit" class="btn-analyze">INITIATE CLASSIFICATION</button>
+            </form>
+        </div>
+
+        <div class="panel-card" style="border-top: 10px solid #1a2a1d;">
+            <h2 style="font-family: 'Playfair Display'; font-size: 1.8rem; color: #1a2a1d;">Regional Trends</h2>
+            
+            <div class="progress-container">
+                <div class="progress-label"><span>Himalayan Belt</span><span>78%</span></div>
+                <div class="progress-bar-bg"><div class="progress-fill" style="background: #2e7d32; width: 78%;"></div></div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-label"><span>Western Ghats</span><span>42%</span></div>
+                <div class="progress-bar-bg"><div class="progress-fill" style="background: #c62828; width: 42%;"></div></div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-label"><span>Central Forests</span><span>65%</span></div>
+                <div class="progress-bar-bg"><div class="progress-fill" style="background: #c88d52; width: 65%;"></div></div>
+            </div>
+
+            <div style="margin-top: 50px; padding: 25px; background: #1a2a1d; border-radius: 12px; color: white;">
+                <h4 style="color: #c88d52; margin-top: 0; letter-spacing: 1px;">SYSTEM LOG</h4>
+                <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 0;">Model v2.1 successfully loaded with 94.2% validation accuracy for 88+ species.</p>
+            </div>
+            
+            <a href="/logout" style="display: block; text-align: center; margin-top: 35px; color: #c62828; font-weight: 800; text-decoration: none; font-size: 0.8rem; letter-spacing: 1px;">
+                LOGOUT SESSION
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.getElementById('audio-input').onchange = function () {
+        if (this.files.length > 0) {
+            const fileNameDisplay = document.getElementById('file-name');
+            fileNameDisplay.style.display = "block";
+            fileNameDisplay.innerHTML = "SELECTED: " + this.files[0].name.toUpperCase();
+            document.getElementById('drop-zone').style.borderColor = "#1a2a1d";
+            document.getElementById('drop-zone').style.background = "#fff";
+        }
+    };
+</script>
+
+{% endblock %}

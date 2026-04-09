@@ -1,0 +1,175 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    /* New Aesthetic Background */
+    .register-wrapper {
+        min-height: 110vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(rgba(26, 42, 29, 0.85), rgba(26, 42, 29, 0.95)), 
+                    url('https://images.unsplash.com/photo-1444464666168-49d633b86797?q=80&w=2069');
+        background-size: cover;
+        position: relative;
+        overflow: hidden;
+        padding: 60px 20px;
+    }
+
+    /* Keeping your 'Blob' idea but making it fit the forest theme */
+    .forest-blob {
+        position: absolute;
+        top: 15%;
+        right: -5%;
+        width: 400px;
+        height: 400px;
+        background: rgba(200, 141, 82, 0.15); /* Goldish glow */
+        filter: blur(80px);
+        border-radius: 50%;
+        z-index: 1;
+    }
+
+    .register-card {
+        background: white;
+        padding: 45px;
+        border-radius: 15px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        width: 100%;
+        max-width: 480px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .register-card h2 { color: #1a2a1d; font-family: 'Inter', sans-serif; font-weight: 700; margin-bottom: 10px; }
+    
+    .input-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #c88d52; /* Gold accent instead of blue */
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        background: #f9f9f9;
+        color: #333;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+        transition: 0.3s;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: #c88d52;
+        background: white;
+    }
+
+    .btn-register {
+        width: 100%;
+        background: #c88d52;
+        color: white;
+        border: none;
+        padding: 16px;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    .btn-register:hover { background: #b07a42; transform: translateY(-2px); }
+
+    /* Validation Styles */
+    .validation-msg { font-size: 0.7rem; margin-top: -10px; margin-bottom: 10px; display: none; }
+    .error-text { color: #e63946; }
+    .success-text { color: #2a9d8f; }
+</style>
+
+<div class="register-wrapper">
+    <div class="forest-blob"></div>
+    
+    <div class="register-card">
+        <span style="color: #c88d52; font-weight: 600; font-size: 0.8rem; letter-spacing: 1px;">JOIN THE RESEARCH</span>
+        <h2>Create Account</h2>
+        <p style="color: #666; font-size: 0.85rem; margin-bottom: 30px;">
+            Register to start analyzing bird vocalizations and tracking population trends.
+        </p>
+
+        <form action="/register" method="POST" id="registrationForm">
+            <label class="input-label">Full Name</label>
+            <input type="text" name="name" id="username" class="form-input" placeholder="Your Name" required>
+
+            <label class="input-label">Email Address</label>
+            <input type="email" name="email" id="email" class="form-input" placeholder="researcher@email.com" required>
+            <div id="emailMsg" class="validation-msg"></div>
+
+            <label class="input-label">Password</label>
+            <input type="password" name="password" id="password" class="form-input" placeholder="Min 8 chars (123, abc, @#$)" required>
+            <div id="passwordMsg" class="validation-msg"></div>
+
+            <label class="input-label">Confirm Password</label>
+            <input type="password" name="confirm_password" id="confirm_password" class="form-input" placeholder="Re-type password" required>
+
+            <button type="submit" class="btn-register">CREATE ACCOUNT</button>
+        </form>
+
+        <p style="margin-top: 25px; font-size: 0.85rem; color: #666;">
+            Already registered? <a href="/login" style="color: #c88d52; font-weight: 700; text-decoration: none;">Login here</a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Real-time validation for Email
+        $('#email').on('input', function () {
+            const email = $(this).val();
+            const msg = $('#emailMsg');
+            if (email.length > 0 && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                msg.text('Invalid email format').addClass('error-text').removeClass('success-text').show();
+            } else if (email.length > 0) {
+                msg.text('Email format is valid').addClass('success-text').removeClass('error-text').show();
+            } else {
+                msg.hide();
+            }
+        });
+
+        // Real-time validation for Password (Matching your app.py requirements)
+        $('#password').on('input', function () {
+            const pass = $(this).val();
+            const msg = $('#passwordMsg');
+            const hasNum = /\d/.test(pass);
+            const hasAlpha = /[a-zA-Z]/.test(pass);
+            const hasSpec = /[^a-zA-Z0-9]/.test(pass);
+
+            if (pass.length > 0 && (pass.length < 8 || !hasNum || !hasAlpha || !hasSpec)) {
+                msg.text('Need 8+ chars, numbers, & symbols').addClass('error-text').removeClass('success-text').show();
+            } else if (pass.length >= 8) {
+                msg.text('Password strength: Strong').addClass('success-text').removeClass('error-text').show();
+            } else {
+                msg.hide();
+            }
+        });
+
+        // Final Validation on Submit
+        $('#registrationForm').on('submit', function (e) {
+            const pass = $('#password').val();
+            const confirm = $('#confirm_password').val();
+            
+            if (pass !== confirm) {
+                e.preventDefault();
+                alert("Passwords do not match!");
+            }
+        });
+    });
+</script>
+{% endblock %}

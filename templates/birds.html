@@ -1,0 +1,150 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    /* 1. Header Section */
+    .birds-hero {
+        padding: 120px 10% 60px;
+        background: #fdfaf7;
+        text-align: center;
+    }
+    .search-container {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    .search-bar {
+        padding: 15px 25px;
+        width: 400px;
+        border: 1px solid #ddd;
+        border-radius: 30px;
+        font-family: 'Poppins';
+    }
+
+    /* 2. Science of Sound Section */
+    .science-section {
+        padding: 60px 10%;
+        background: #1a2a1d;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 50px;
+    }
+    .spectrogram-box {
+        flex: 1;
+        background: rgba(255,255,255,0.1);
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+    }
+
+    /* 3. Interactive Cards Grid */
+    .birds-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        padding: 80px 10%;
+        background: #fff;
+    }
+    .bird-card {
+        background: #fff;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        border: 1px solid #eee;
+        cursor: pointer;
+    }
+    .bird-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(200, 141, 82, 0.15);
+    }
+    .bird-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    .card-content { padding: 25px; }
+    .card-content h3 { font-family: 'Playfair Display'; margin: 0; color: #1a2a1d; }
+    .bird-tag {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #c88d52;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 10px;
+    }
+    .stats {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        font-size: 0.85rem;
+        color: #666;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+    }
+</style>
+
+<section class="birds-hero">
+    <span class="accent">Species Directory</span>
+    <h1 style="font-family: 'Playfair Display'; font-size: 3.5rem; margin: 10px 0;">The Avian Library</h1>
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search by name or frequency...">
+        <button class="btn-main" style="padding: 15px 30px;">Filter</button>
+    </div>
+</section>
+
+<section class="science-section">
+    <div style="flex: 1;">
+        <span class="accent" style="color: #c88d52;">The Data Science</span>
+        <h2 style="color: white; font-family: 'Playfair Display';">The Science of Sound</h2>
+        <p style="opacity: 0.8; line-height: 1.8;">Our AI doesn't just 'listen'—it visualizes. We convert audio into <b>Mel-Spectrograms</b>, allowing our neural network to identify bird species by analyzing frequency patterns over time.</p>
+    </div>
+    <div class="spectrogram-box">
+        <p style="font-size: 0.8rem; margin-bottom: 10px; color: #c88d52;">ACOUSTIC SIGNATURE EXAMPLE</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Spectrogram-of-bird-song.png" style="width: 100%; border-radius: 10px; filter: hue-rotate(180deg);">
+    </div>
+</section>
+
+<div class="birds-grid">
+    <div class="bird-card">
+        <img src="https://images.unsplash.com/photo-1552728089-57bdde30eba3?q=80&w=1000" class="bird-img">
+        <div class="card-content">
+            <span class="bird-tag">Common Forest Bird</span>
+            <h3>European Robin</h3>
+            <p style="font-size: 0.9rem; color: #777;">Famous for its vibrant orange breast and complex, flute-like melodic songs.</p>
+            <div class="stats">
+                <span><b>FREQ:</b> 2.0-8.5 kHz</span>
+                <span style="color: #c88d52;">● Identify</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bird-card">
+        <img src="https://images.unsplash.com/photo-1444464666168-49d633b86797?q=80&w=1000" class="bird-img">
+        <div class="card-content">
+            <span class="bird-tag">Songbird</span>
+            <h3>Song Thrush</h3>
+            <p style="font-size: 0.9rem; color: #777;">Known for repeating musical phrases, often heard in gardens and woodlands.</p>
+            <div class="stats">
+                <span><b>FREQ:</b> 1.5-6.0 kHz</span>
+                <span style="color: #c88d52;">● Identify</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bird-card">
+        <img src="https://images.unsplash.com/photo-1522926126624-3ef711a5a827?q=80&w=1000" class="bird-img">
+        <div class="card-content">
+            <span class="bird-tag">Rare Species</span>
+            <h3>Common Nightingale</h3>
+            <p style="font-size: 0.9rem; color: #777;">Renowned for being one of the most beautiful and complex singers in nature.</p>
+            <div class="stats">
+                <span><b>FREQ:</b> 1.0-5.5 kHz</span>
+                <span style="color: #c88d52;">● Identify</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

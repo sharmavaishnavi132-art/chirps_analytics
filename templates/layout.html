@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chirps Analytics | British Birdsong Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { --forest: #1a2a1d; --gold: #c88d52; --white: #f4f7f4; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--white); overflow-x: hidden; }
+        
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 8%; background: rgba(26, 42, 29, 0.9);
+            position: fixed; width: 100%; top: 0; z-index: 1000; box-sizing: border-box;
+            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(200, 141, 82, 0.1);
+        }
+        .logo { font-family: 'Playfair Display', serif; color: white; font-size: 1.4rem; text-decoration: none; font-weight: 700; letter-spacing: 1px; }
+        
+        .nav-links a { 
+            color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 15px; 
+            font-size: 0.85rem; font-weight: 500; transition: 0.3s; 
+        }
+        .nav-links a:hover, .nav-links a.active { color: white; }
+        .nav-links a.active { border-bottom: 2px solid var(--gold); padding-bottom: 5px; color: var(--gold); }
+
+        .btn-nav-gold { background: var(--gold); color: white !important; padding: 8px 20px; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-nav-gold:hover { background: #b07a42; transform: translateY(-1px); }
+        
+        .flashes { position: fixed; top: 80px; width: 100%; z-index: 2000; list-style: none; padding: 0; }
+        .alert { padding: 10px; text-align: center; color: white; font-weight: 600; font-size: 0.9rem; border-radius: 4px; margin: 0 10%; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .alert-success { background: #2a9d8f; }
+        .alert-error { background: #e63946; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">CHIRPS ANALYTICS</a>
+        <div class="nav-links">
+            <a href="/" class="{{ 'active' if request.path == '/' else '' }}">Explore</a>
+            <a href="/about" class="{{ 'active' if request.path == '/about' else '' }}">About</a>
+            {% if session.get('user_id') %}
+                <a href="/dashboard" class="{{ 'active' if request.path == '/dashboard' else '' }}">Dashboard</a>
+            {% endif %}
+            <a href="/birds" class="{{ 'active' if request.path == '/birds' else '' }}">Birds</a>
+            <a href="/contact" class="{{ 'active' if request.path == '/contact' else '' }}">Contact</a>
+        </div>
+        <div class="nav-auth">
+            {% if session.get('user_id') %}
+                <span style="color: white; font-size: 0.8rem; margin-right: 15px; opacity: 0.8;">Hi, {{ session.get('user_name') }}</span>
+                <a href="/logout" style="color: #f87171; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Logout</a>
+            {% else %}
+                <a href="/login" class="{{ 'active' if request.path == '/login' else '' }}" style="color: white; text-decoration: none; margin-right: 20px; font-size: 0.85rem;">Log in</a>
+                <a href="/register" class="btn-nav-gold">Join Now</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}<ul class="flashes">{% for cat, msg in messages %}<li class="alert alert-{{ cat }}">{{ msg }}</li>{% endfor %}</ul>{% endif %}
+    {% endwith %}
+
+    <main>{% block content %}{% endblock %}</main>
+</body>
+</html>

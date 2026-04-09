@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    /* 1. Hero Section */
+    .hero {
+        height: 100vh;
+        background: linear-gradient(rgba(26, 42, 29, 0.4), rgba(26, 42, 29, 0.6)), 
+                    url('https://images.pexels.com/photos/5499898/pexels-photo-5499898.jpeg');
+        background-size: cover; background-position: center;
+        display: flex; align-items: center; padding-left: 10%; color: white;
+    }
+    .hero-container { max-width: 700px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; line-height: 1.1; margin: 20px 0; }
+    .hero p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; }
+    .btn-main { background: #c88d52; color: white; padding: 18px 45px; text-decoration: none; font-weight: 700; border-radius: 4px; transition: 0.3s; }
+    .btn-main:hover { background: #b07a44; }
+
+    /* 2. Common Section Styling */
+    .section { padding: 100px 15%; line-height: 1.8; color: #333; }
+    .bg-light { background: #fdfaf7; }
+    .bg-dark { background: #1a2a1d; color: white; }
+    
+    h2 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 25px; color: #1a2a1d; }
+    .dark-h2 { color: white !important; }
+    .accent { color: #c88d52; text-transform: uppercase; font-weight: 700; letter-spacing: 3px; font-size: 0.85rem; display: block; margin-bottom: 10px; }
+
+    /* 3. Grid for Features */
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; margin-top: 60px; }
+    .feature-item h4 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 15px; color: #1a2a1d; }
+    .dark-h4 { color: #c88d52 !important; }
+</style>
+
+<section class="hero">
+    <div class="hero-container">
+        <span class="accent">AI-Powered Bio-Acoustics</span>
+        <h1>Where every <br> bird song <br> tells a story.</h1>
+        <p>Decoding the natural world through advanced Deep Learning and acoustic fingerprinting.</p>
+        <a href="/register" class="btn-main">Start Exploring</a>
+    </div>
+</section>
+
+<section class="section">
+    <div style="max-width: 800px;">
+        <span class="accent">The Vision</span>
+        <h2>Preserving the <br> Melodies of Nature</h2>
+        <p style="font-size: 1.15rem;">In a rapidly changing environment, monitoring biodiversity is crucial. Chirps Analytics uses Artificial Intelligence to listen to the forest, identifying species without disturbing their natural habitat. We turn sound into data to help protect the ecosystems of tomorrow.</p>
+    </div>
+</section>
+
+<section class="section bg-dark">
+    <div style="text-align: center; margin-bottom: 60px;">
+        <span class="accent">How It Works</span>
+        <h2 class="dark-h2">Acoustic Intelligence</h2>
+    </div>
+    
+    <div class="feature-grid">
+        <div class="feature-item">
+            <h4 class="dark-h4">Spectrogram Analysis</h4>
+            <p style="opacity: 0.8;">We convert raw audio into Mel-Spectrograms—visual "fingerprints" of sound. Our neural networks analyze these patterns just like images to ensure high accuracy.</p>
+        </div>
+        <div class="feature-item">
+            <h4 class="dark-h4">Global Data Models</h4>
+            <p style="opacity: 0.8;">Our intelligence engine is trained on massive bio-acoustic archives, allowing for precise identification across various species and environments.</p>
+        </div>
+        <div class="feature-item">
+            <h4 class="dark-h4">Real-time Insights</h4>
+            <p style="opacity: 0.8;">Upload field recordings and get instant classification results, enabling researchers to track migration and population health effectively.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section bg-light">
+    <div style="display: flex; align-items: center; gap: 80px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 350px;">
+            <span class="accent">The Science</span>
+            <h2>Turning Melodies <br> into Data</h2>
+            <p>Every chirp, whistle, and trill has a unique frequency. By identifying these nuances, our tool provides a non-invasive bridge between nature and digital conservation efforts.</p>
+            <ul style="list-style: none; padding: 0; margin-top: 20px;">
+                <li style="margin-bottom: 10px;"><strong>✓ 88+</strong> Species Classification</li>
+                <li style="margin-bottom: 10px;"><strong>✓ 90%+</strong> Model Precision</li>
+                <li style="margin-bottom: 10px;"><strong>✓ Fast</strong> Acoustic Mapping</li>
+            </ul>
+        </div>
+        <div style="flex: 1; min-width: 350px;">
+            <img src="https://images.pexels.com/photos/53973/nest-bird-s-nest-nesting-blackbirds-53973.jpeg" 
+                 alt="Forest" style="width: 100%; border-radius: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.1);">
+        </div>
+    </div>
+</section>
+
+<section class="section" style="text-align: center; background: #fff;">
+    <h2 style="margin-bottom: 10px;">Start Your Research</h2>
+    <p style="margin-bottom: 40px;">Join our community of bird enthusiasts and data scientists.</p>
+    <a href="/login" class="btn-main">Get Started Now</a>
+</section>
+
+{% endblock %}

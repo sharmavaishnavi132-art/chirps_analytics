@@ -1,0 +1,165 @@
+/* 1. FONTS & ROOT VARIABLES */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Playfair+Display:wght@700&display=swap');
+
+:root {
+    --primary-green: #1b4332;
+    --accent-blue: #00b4d8;
+    --danger-red: #e63946;
+    --dark-bg: #0b090a;
+    --glass: rgba(255, 255, 255, 0.08);
+}
+
+/* 2. GLOBAL STYLES */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: radial-gradient(circle at top right, #1b4332, #081c15, #000000);
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+/* 3. HERO SECTION (With Parallax & Glow) */
+.hero-section {
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 0 20px;
+    background-attachment: fixed !important;
+    overflow: hidden;
+}
+
+.hero-section h1 {
+    font-size: clamp(3rem, 12vw, 8rem);
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: -4px;
+    text-transform: uppercase;
+    background: linear-gradient(to bottom, #ffffff, var(--accent-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(0, 180, 216, 0.3);
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* 4. CONTENT LAYOUT */
+.content-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* 5. FEATURE CARDS (Glassmorphism) */
+.feature-card {
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    padding: 45px;
+    margin-bottom: 40px;
+    transition: 0.4s ease;
+}
+
+.feature-card:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-5px);
+}
+
+.feature-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--accent-blue);
+}
+
+.tag {
+    background: var(--accent-blue);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.highlight-border {
+    border-left: 5px solid var(--danger-red);
+}
+
+/* 6. IMAGE GALLERY EFFECTS */
+.content-container img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: brightness(0.8) contrast(1.1);
+    cursor: pointer;
+}
+
+.content-container img:hover {
+    transform: scale(1.03);
+    filter: brightness(1);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+
+/* 7. BUTTONS */
+.btn-primary {
+    background: #ffffff;
+    color: #000000;
+    padding: 18px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: inline-block;
+    transition: 0.3s;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.btn-primary:hover {
+    background: var(--accent-blue);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 180, 216, 0.4);
+}
+
+/* 8. DATA VIZ & UTILS */
+.data-viz {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(90deg, rgba(0, 180, 216, 0.1), rgba(45, 106, 79, 0.1));
+    border-radius: 20px;
+    margin-top: 25px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-blue);
+}
+
+.blob {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: rgba(45, 106, 79, 0.3);
+    filter: blur(100px);
+    z-index: -1;
+    top: 5%;
+    left: -5%;
+    border-radius: 50%;
+}

@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    .contact-hero {
+        padding: 120px 10% 60px;
+        background: #fdfaf7;
+        text-align: center;
+    }
+    .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        padding: 60px 10%;
+        background: #fff;
+    }
+    .contact-info h2 {
+        font-family: 'Playfair Display';
+        font-size: 3rem;
+        color: #1a2a1d;
+        margin-bottom: 20px;
+    }
+    .info-item {
+        margin-bottom: 30px;
+    }
+    .info-item h4 {
+        color: #c88d52;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+    }
+    .info-item p {
+        font-size: 1.1rem;
+        color: #333;
+    }
+    
+    /* Form Styling */
+    .contact-form {
+        background: #fdfaf7;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+        color: #666;
+    }
+    .form-control {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-family: 'Poppins';
+    }
+    textarea.form-control {
+        height: 120px;
+    }
+</style>
+
+<section class="contact-hero">
+    <span class="accent">Get in Touch</span>
+    <h1 style="font-family: 'Playfair Display'; font-size: 3.5rem;">Let's talk about Birds & Data</h1>
+</section>
+
+<section class="contact-container">
+    <div class="contact-info">
+        <h2>Collaboration & <br>Inquiries</h2>
+        <p style="margin-bottom: 40px; color: #666;">Whether you're a researcher looking for acoustic data or a developer interested in Bio-Acoustics AI, I'd love to hear from you.</p>
+        
+        <div class="info-item">
+            <h4>Email</h4>
+            <p>hello@chirpsanalytics.com</p>
+        </div>
+        <div class="info-item">
+            <h4>Location</h4>
+            <p>Lucknow, Uttar Pradesh</p>
+        </div>
+        <div class="info-item">
+            <h4>GitHub</h4>
+            <p>github.com/chirps-analytics</p>
+        </div>
+    </div>
+
+    <div class="contact-form">
+        <form>
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" class="form-control" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label>Message</label>
+                <textarea class="form-control" placeholder="How can Chirps Analytics help you?"></textarea>
+            </div>
+            <button class="btn-main" style="width: 100%; border: none; cursor: pointer;">Send Message</button>
+        </form>
+    </div>
+</section>
+
+{% endblock %}
