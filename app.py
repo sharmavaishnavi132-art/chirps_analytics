@@ -36,6 +36,20 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        email = request.form.get('email')
+        
+        # --- ADDED LOGIC START ---
+        # Note: Abhi database nahi hai, isliye hum ek dummy check kar rahe hain.
+        # Agar aap 'test@gmail.com' se register karne ki koshish karenge toh ye error dega.
+        # Future mein yahan 'User.query.filter_by(email=email).first()' aayega.
+        
+        existing_user_dummy = "test@gmail.com" 
+        
+        if email == existing_user_dummy:
+            flash('This user already exists. Go and login.', 'error')
+            return redirect(url_for('login'))
+        # --- ADDED LOGIC END ---
+
         flash('Registration successful! Please login.', 'success')
         return redirect(url_for('login'))
     return render_template('register.html')

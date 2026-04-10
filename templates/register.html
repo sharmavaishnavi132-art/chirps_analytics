@@ -88,6 +88,18 @@
     .validation-msg { font-size: 0.7rem; margin-top: -10px; margin-bottom: 10px; display: none; }
     .error-text { color: #e63946; }
     .success-text { color: #2a9d8f; }
+
+    /* Flash Message Specific Styling */
+    .flash-alert {
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-size: 0.85rem;
+        text-align: center;
+        border: 1px solid transparent;
+    }
+    .flash-error { background-color: #fceaea; color: #e63946; border-color: #f5c6cb; }
+    .flash-success { background-color: #eafaf1; color: #2a9d8f; border-color: #d1f2eb; }
 </style>
 
 <div class="register-wrapper">
@@ -95,6 +107,16 @@
     
     <div class="register-card">
         <span style="color: #c88d52; font-weight: 600; font-size: 0.8rem; letter-spacing: 1px;">JOIN THE RESEARCH</span>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash-alert {{ 'flash-error' if category == 'error' else 'flash-success' }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
         <h2>Create Account</h2>
         <p style="color: #666; font-size: 0.85rem; margin-bottom: 30px;">
             Register to start analyzing bird vocalizations and tracking population trends.
@@ -143,7 +165,7 @@
             }
         });
 
-        // Real-time validation for Password (Matching your app.py requirements)
+        // Real-time validation for Password
         $('#password').on('input', function () {
             const pass = $(this).val();
             const msg = $('#passwordMsg');
