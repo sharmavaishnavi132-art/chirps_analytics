@@ -38,7 +38,7 @@
         <a href="/" class="logo">CHIRPS ANALYTICS</a>
         <div class="nav-links">
             <a href="/" class="{{ 'active' if request.path == '/' else '' }}">Explore</a>
-            <a href="/about" class="{{ 'active' if request.path == '/about' else '' }}">About</a>
+            <a href="/about">About</a>
             {% if session.get('user_id') %}
                 <a href="/dashboard" class="{{ 'active' if request.path == '/dashboard' else '' }}">Dashboard</a>
             {% endif %}
