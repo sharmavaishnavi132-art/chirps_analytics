@@ -4,12 +4,48 @@ Bird Species Prediction Script
 This script predicts bird species from audio files using the trained model.
 """
 
+import datetime
+import os
+
+def log_debug(message):
+    """Log a debug message to a file."""
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    try:
+        with open("analysis_debug.log", "a") as f:
+            f.write(f"[{timestamp}] {message}\n")
+    except:
+        pass
+    print(f"DEBUG: {message}")
+
+log_debug("Starting imports...")
 import numpy as np
+log_debug("numpy imported")
 import pandas as pd
+log_debug("pandas imported")
 from librosa import feature
+log_debug("librosa.feature imported")
 import soundfile as sf
+log_debug("soundfile imported")
 import pickle
+log_debug("pickle imported")
+
+# Set Numba cache to a local directory to avoid permission hangs on Windows
+os.environ['NUMBA_CACHE_DIR'] = os.path.join(os.getcwd(), 'tmp', 'numba_cache')
+if not os.path.exists(os.path.join(os.getcwd(), 'tmp', 'numba_cache')):
+    os.makedirs(os.path.join(os.getcwd(), 'tmp', 'numba_cache'), exist_ok=True)
+
+log_debug("Starting sklearn import...")
 from sklearn import naive_bayes
+log_debug("sklearn.naive_bayes imported")
+import datetime
+
+def log_debug(message):
+    """Log a debug message to a file."""
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open("analysis_debug.log", "a") as f:
+        f.write(f"[{timestamp}] {message}\n")
+    print(f"DEBUG: {message}")
+
 
 
 def extract_features_from_audio(audio_file_path, window_size=6144, sample_rate=22050):
@@ -26,8 +62,16 @@ def extract_features_from_audio(audio_file_path, window_size=6144, sample_rate=2
     """
     print(f"Loading audio file: {audio_file_path}")
     
-    # Load audio file
-    data, sr = sf.read(audio_file_path)
+    # Load audio file, downmixing to mono and resampling to target sample rate
+    log_debug(f"Starting audio load: {audio_file_path}")
+    import librosa
+    try:
+        data, sr = librosa.load(audio_file_path, sr=sample_rate, mono=True)
+        log_debug(f"Audio loaded successfully: {len(data)} samples at {sr} Hz")
+    except Exception as e:
+        log_debug(f"CRITICAL ERROR during librosa.load: {str(e)}")
+        raise
+
     
     print(f"Audio loaded: {len(data)} samples at {sr} Hz")
     print(f"Duration: {len(data)/sr:.2f} seconds")
@@ -44,7 +88,9 @@ def extract_features_from_audio(audio_file_path, window_size=6144, sample_rate=2
             
         window = data[i:i+window_size]
         
+        # log_debug(f"Processing window {i//window_size}")
         # Extract spectral centroid (13 values)
+
         spec_centroid = feature.spectral_centroid(y=window, sr=sr)[0]
         
         # Extract chromagram (12 pitch classes × 13 time frames)
