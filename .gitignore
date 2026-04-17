@@ -1,2 +1,10 @@
-/songs
 bird_classifier_model.pkl
+bird_classification-main/songs
+bird_classification-main/train.csv
+bird_classification-main/test.csv
+bird_classification-main/_pycache_
+bird_classification-main/bird_classifier_model.pkl
+bird_classification-main/analysis_debug.log
+bird_classification-main/tmp
+uploads
+/tmp

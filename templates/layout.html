@@ -40,7 +40,7 @@
             <a href="/" class="{{ 'active' if request.path == '/' else '' }}">Explore</a>
             <a href="/about" class="{{ 'active' if request.path == '/about' else '' }}">About</a>
             {% if session.get('user_id') %}
-                <a href="/dashboard" class="{{ 'active' if request.path == '/dashboard' else '' }}">Dashboard</a>
+                <a href="/classification" class="{{ 'active' if request.path == '/classification' else '' }}">classification</a>
             {% endif %}
             <a href="/birds" class="{{ 'active' if request.path == '/birds' else '' }}">Birds</a>
             <a href="/contact" class="{{ 'active' if request.path == '/contact' else '' }}">Contact</a>

@@ -1,0 +1,264 @@
+{% extends "layout.html" %}
+
+{% block title %}Bird Classification - AI{% endblock %}
+
+{% block css %}
+<style>
+    .classification-container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .upload-box {
+        text-align: center;
+        padding: 50px;
+        border: 2px dashed rgba(56, 189, 248, 0.4);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .upload-box:hover {
+        border-color: #38bdf8;
+        background: rgba(56, 189, 248, 0.05);
+    }
+
+    .upload-icon {
+        font-size: 3rem;
+        color: #38bdf8;
+        margin-bottom: 15px;
+    }
+
+    .btn-analyze {
+        background: linear-gradient(135deg, #38bdf8, #2563eb);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+        margin-top: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-analyze:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    .results-card {
+        margin-top: 40px;
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .species-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .species-name {
+        font-size: 3.5rem;
+        font-weight: 700;
+        background: linear-gradient(to right, #38bdf8, #818cf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .metrics-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 30px;
+    }
+
+    .metric-card {
+        text-align: center;
+        padding: 30px;
+    }
+
+    .confidence-circle {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 15px;
+    }
+
+    .confidence-value {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+
+    .prob-breakdown {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    .prob-item {
+        margin-bottom: 15px;
+    }
+
+    .prob-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+        color: #ccc;
+    }
+
+    .prob-bar-bg {
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .prob-bar-fill {
+        height: 100%;
+        background: linear-gradient(to right, #38bdf8, #2563eb);
+        border-radius: 4px;
+        width: 0;
+        transition: width 1s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    }
+
+    .audio-player {
+        width: 100%;
+        margin-top: 20px;
+        filter: invert(100%) hue-rotate(180deg) brightness(1.5);
+    }
+
+    .loading-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(15, 23, 42, 0.8);
+        backdrop-filter: blur(5px);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid rgba(56, 189, 248, 0.3);
+        border-top-color: #38bdf8;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container classification-container">
+    <h2 class="section-title">Bird Species Identification</h2>
+
+    <div class="glass">
+        <form action="{{ url_for('classification') }}" method="POST" enctype="multipart/form-data" id="uploadForm">
+            <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">🎵</div>
+                <h3>Click to Upload Audio</h3>
+                <p>Supported formats: WAV, MP3, FLAC</p>
+                <input type="file" name="file" id="fileInput" hidden onchange="showFileName()">
+                <p id="fileName" style="margin-top: 15px; color: #38bdf8; font-weight: 500;"></p>
+            </div>
+            <div style="text-align: center;">
+                <button type="submit" class="btn-analyze" id="analyzeBtn">Analyze Recording</button>
+            </div>
+        </form>
+    </div>
+
+    {% if results %}
+    <div class="results-card">
+        <div class="glass" style="background: rgba(255, 255, 255, 0.05);">
+            <div class="species-header">
+                <p style="color: #38bdf8; font-weight: 600; text-transform: uppercase;">Most Likely Species</p>
+                <h2 class="species-name">{{ results.predicted_species }}</h2>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card glass">
+                    <div class="confidence-circle">
+                        <svg width="150" height="150" viewBox="0 0 150 150">
+                            <circle cx="75" cy="75" r="65" stroke="rgba(255,255,255,0.1)" stroke-width="10" fill="none" />
+                            <circle cx="75" cy="75" r="65" stroke="#38bdf8" stroke-width="10" fill="none" 
+                                    stroke-dasharray="408.41" stroke-dashoffset="{{ 408.41 - (408.41 * results.confidence / 100) }}" 
+                                    style="transition: stroke-dashoffset 1.5s ease-out;" />
+                        </svg>
+                        <div class="confidence-value">{{ results.confidence|round(1) }}%</div>
+                    </div>
+                    <p style="color: #ccc;">Overall Confidence</p>
+                    <p style="font-size: 0.8rem; color: #888;">(Based on {{ results.num_windows }} audio windows)</p>
+                </div>
+
+                <div class="prob-breakdown glass">
+                    <h4 style="margin-bottom: 20px;">Probability Breakdown</h4>
+                    {% for species, prob in results.top_probabilities %}
+                    <div class="prob-item">
+                        <div class="prob-label">
+                            <span>{{ species }}</span>
+                            <span>{{ prob|round(1) }}%</span>
+                        </div>
+                        <div class="prob-bar-bg">
+                            <!-- <div class="prob-bar-fill" style="width: {{ prob|float }}%;"></div> -->
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <h4 style="margin-bottom: 15px; color: #38bdf8;">Analyzed Recording</h4>
+                <audio controls class="audio-player">
+                    <source src="{{ results.audio_url }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <p style="margin-top: 20px; font-size: 1.2rem; font-weight: 600;">Analyzing patterns...</p>
+    <p style="color: #888;">This may take a few seconds</p>
+</div>
+
+<script>
+function showFileName() {
+    const input = document.getElementById('fileInput');
+    const fileNameDisplay = document.getElementById('fileName');
+    if (input.files.length > 0) {
+        fileNameDisplay.textContent = "Selected: " + input.files[0].name;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById('uploadForm').onsubmit = function() {
+        if (document.getElementById('fileInput').files.length > 0) {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+    };
+});
+</script>
+{% endblock %}

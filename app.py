@@ -15,7 +15,7 @@ sys.path.append(os.path.join(os.getcwd(), 'bird_classification-main'))
 from predict_bird_species import predict_species, log_debug
 
 # Create Flask app
-app = Flask(__name__)
+app = Flask(__name__) 
 
 # File upload configuration
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -29,6 +29,7 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
 MODEL_PATH = os.path.join('bird_classification-main', 'bird_classifier_model.pkl')
 with open(MODEL_PATH, 'rb') as f:
     model = pickle.load(f)
+
 
 # Function to check allowed file types
 def allowed_file(filename):
@@ -53,8 +54,8 @@ with app.app_context():
 
 # Home page
 @app.route('/')
-def index():
-    return render_template('index.html')
+def home():
+    return render_template('home.html')
 
 # Login required decorator (protect routes)
 def login_required(f):
@@ -81,7 +82,7 @@ def login():
             session['user_id'] = user.id
             session['user_name'] = user.name
             flash('Signin successful', 'success')
-            return redirect(url_for('index'))
+            return redirect(url_for('home'))
 
     return render_template('login.html')
 
@@ -149,7 +150,7 @@ def logout():
     session.pop('user_id', None)
     session.pop('user_name', None)
     flash('Logout successful','success')
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 # Serve uploaded audio files
 @app.route('/uploads/<filename>')
@@ -158,9 +159,9 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 # Bird classification route (main feature)
-@app.route('/dashboard', methods=['GET', 'POST'])
+@app.route('/classification', methods=['GET', 'POST'])
 @login_required
-def dashboard():
+def classification():
     results = None
 
     if request.method == 'POST':
@@ -213,7 +214,7 @@ def dashboard():
             except Exception as e:
                 flash(f'Error analyzing audio: {str(e)}', 'error')
 
-    return render_template('dashboard.html', results=results)
+    return render_template('classification.html', results=results)
 
 # Run app
 if __name__ == '__main__':
