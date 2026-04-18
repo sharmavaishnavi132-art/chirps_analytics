@@ -308,3 +308,568 @@
 [2026-04-17 15:52:51] Starting audio load: uploads\xc27060.flac
 [2026-04-17 15:52:51] Audio loaded successfully: 1613947 samples at 22050 Hz
 [2026-04-17 15:52:53] Analysis successful for: xc27060.flac
+[2026-04-17 23:54:09] Starting imports...
+[2026-04-17 23:54:10] numpy imported
+[2026-04-17 23:54:11] pandas imported
+[2026-04-17 23:54:11] librosa.feature imported
+[2026-04-17 23:54:11] soundfile imported
+[2026-04-17 23:54:11] pickle imported
+[2026-04-17 23:54:11] Starting sklearn import...
+[2026-04-17 23:54:14] sklearn.naive_bayes imported
+[2026-04-18 00:03:53] Starting imports...
+[2026-04-18 00:03:53] numpy imported
+[2026-04-18 00:03:53] pandas imported
+[2026-04-18 00:03:53] librosa.feature imported
+[2026-04-18 00:03:53] soundfile imported
+[2026-04-18 00:03:53] pickle imported
+[2026-04-18 00:03:53] Starting sklearn import...
+[2026-04-18 00:03:55] sklearn.naive_bayes imported
+[2026-04-18 00:03:56] Starting imports...
+[2026-04-18 00:03:57] numpy imported
+[2026-04-18 00:03:57] pandas imported
+[2026-04-18 00:03:57] librosa.feature imported
+[2026-04-18 00:03:57] soundfile imported
+[2026-04-18 00:03:57] pickle imported
+[2026-04-18 00:03:57] Starting sklearn import...
+[2026-04-18 00:03:59] sklearn.naive_bayes imported
+[2026-04-18 00:06:55] Starting imports...
+[2026-04-18 00:06:55] numpy imported
+[2026-04-18 00:06:56] pandas imported
+[2026-04-18 00:06:56] librosa.feature imported
+[2026-04-18 00:06:56] soundfile imported
+[2026-04-18 00:06:56] pickle imported
+[2026-04-18 00:06:56] Starting sklearn import...
+[2026-04-18 00:06:57] sklearn.naive_bayes imported
+[2026-04-18 00:06:58] Starting imports...
+[2026-04-18 00:06:59] numpy imported
+[2026-04-18 00:06:59] pandas imported
+[2026-04-18 00:06:59] librosa.feature imported
+[2026-04-18 00:06:59] soundfile imported
+[2026-04-18 00:06:59] pickle imported
+[2026-04-18 00:06:59] Starting sklearn import...
+[2026-04-18 00:07:01] sklearn.naive_bayes imported
+[2026-04-18 00:16:47] Starting imports...
+[2026-04-18 00:16:47] numpy imported
+[2026-04-18 00:16:48] pandas imported
+[2026-04-18 00:16:48] librosa.feature imported
+[2026-04-18 00:16:48] soundfile imported
+[2026-04-18 00:16:48] pickle imported
+[2026-04-18 00:16:48] Starting sklearn import...
+[2026-04-18 00:16:50] sklearn.naive_bayes imported
+[2026-04-18 00:16:51] Starting imports...
+[2026-04-18 00:16:51] numpy imported
+[2026-04-18 00:16:52] pandas imported
+[2026-04-18 00:16:52] librosa.feature imported
+[2026-04-18 00:16:52] soundfile imported
+[2026-04-18 00:16:52] pickle imported
+[2026-04-18 00:16:52] Starting sklearn import...
+[2026-04-18 00:16:53] sklearn.naive_bayes imported
+[2026-04-18 00:17:02] Starting imports...
+[2026-04-18 00:17:02] Starting imports...
+[2026-04-18 00:17:02] Starting imports...
+[2026-04-18 00:17:02] Starting imports...
+[2026-04-18 00:17:02] numpy imported
+[2026-04-18 00:17:02] numpy imported
+[2026-04-18 00:17:02] numpy imported
+[2026-04-18 00:17:02] numpy imported
+[2026-04-18 00:17:03] pandas imported
+[2026-04-18 00:17:03] librosa.feature imported
+[2026-04-18 00:17:03] pandas imported
+[2026-04-18 00:17:03] soundfile imported
+[2026-04-18 00:17:03] pandas imported
+[2026-04-18 00:17:03] Starting sklearn import...
+[2026-04-18 00:17:03] librosa.feature imported
+[2026-04-18 00:17:03] librosa.feature imported
+[2026-04-18 00:17:03] soundfile imported
+[2026-04-18 00:17:03] soundfile imported
+[2026-04-18 00:17:03] pickle imported
+[2026-04-18 00:17:03] pickle imported
+[2026-04-18 00:17:03] Starting sklearn import...
+[2026-04-18 00:17:03] Starting sklearn import...
+[2026-04-18 00:17:04] pandas imported
+[2026-04-18 00:17:04] librosa.feature imported
+[2026-04-18 00:17:04] soundfile imported
+[2026-04-18 00:17:04] pickle imported
+[2026-04-18 00:17:04] Starting sklearn import...
+[2026-04-18 00:17:07] sklearn.naive_bayes imported
+[2026-04-18 00:17:07] sklearn.naive_bayes imported
+[2026-04-18 00:17:07] sklearn.naive_bayes imported
+[2026-04-18 00:17:07] sklearn.naive_bayes imported
+[2026-04-18 00:26:42] Starting imports...
+[2026-04-18 00:26:42] numpy imported
+[2026-04-18 00:26:43] pandas imported
+[2026-04-18 00:26:43] librosa.feature imported
+[2026-04-18 00:26:43] soundfile imported
+[2026-04-18 00:26:43] pickle imported
+[2026-04-18 00:26:43] Starting sklearn import...
+[2026-04-18 00:26:45] sklearn.naive_bayes imported
+[2026-04-18 00:26:46] Starting imports...
+[2026-04-18 00:26:46] numpy imported
+[2026-04-18 00:26:47] pandas imported
+[2026-04-18 00:26:47] librosa.feature imported
+[2026-04-18 00:26:47] soundfile imported
+[2026-04-18 00:26:47] pickle imported
+[2026-04-18 00:26:47] Starting sklearn import...
+[2026-04-18 00:26:48] sklearn.naive_bayes imported
+[2026-04-18 01:02:20] Starting imports...
+[2026-04-18 01:02:20] Starting imports...
+[2026-04-18 01:02:20] Starting imports...
+[2026-04-18 01:02:20] Starting imports...
+[2026-04-18 01:02:20] Starting imports...
+[2026-04-18 01:02:20] numpy imported
+[2026-04-18 01:02:20] numpy imported
+[2026-04-18 01:02:20] numpy imported
+[2026-04-18 01:02:20] numpy imported
+[2026-04-18 01:02:20] numpy imported
+[2026-04-18 01:02:21] pandas imported
+[2026-04-18 01:02:21] pandas imported
+[2026-04-18 01:02:21] pandas imported
+[2026-04-18 01:02:21] librosa.feature imported
+[2026-04-18 01:02:21] soundfile imported
+[2026-04-18 01:02:21] pickle imported
+[2026-04-18 01:02:21] soundfile imported
+[2026-04-18 01:02:21] Starting sklearn import...
+[2026-04-18 01:02:21] pickle imported
+[2026-04-18 01:02:21] Starting sklearn import...
+[2026-04-18 01:02:21] Starting sklearn import...
+[2026-04-18 01:02:21] pandas imported
+[2026-04-18 01:02:21] librosa.feature imported
+[2026-04-18 01:02:21] soundfile imported
+[2026-04-18 01:02:21] pickle imported
+[2026-04-18 01:02:21] Starting sklearn import...
+[2026-04-18 01:02:21] pandas imported
+[2026-04-18 01:02:21] librosa.feature imported
+[2026-04-18 01:02:21] soundfile imported
+[2026-04-18 01:02:21] pickle imported
+[2026-04-18 01:02:21] Starting sklearn import...
+[2026-04-18 01:02:24] sklearn.naive_bayes imported
+[2026-04-18 01:02:24] sklearn.naive_bayes imported
+[2026-04-18 01:02:24] sklearn.naive_bayes imported
+[2026-04-18 01:02:24] sklearn.naive_bayes imported
+[2026-04-18 01:02:24] sklearn.naive_bayes imported
+[2026-04-18 01:02:26] Starting imports...
+[2026-04-18 01:02:26] Starting imports...
+[2026-04-18 01:02:26] Starting imports...
+[2026-04-18 01:02:26] Starting imports...
+[2026-04-18 01:02:26] Starting imports...
+[2026-04-18 01:02:26] numpy imported
+[2026-04-18 01:02:26] numpy imported
+[2026-04-18 01:02:26] numpy imported
+[2026-04-18 01:02:26] numpy imported
+[2026-04-18 01:02:26] numpy imported
+[2026-04-18 01:02:27] pandas imported
+[2026-04-18 01:02:27] pandas imported
+[2026-04-18 01:02:27] pandas imported
+[2026-04-18 01:02:27] librosa.feature imported
+[2026-04-18 01:02:27] librosa.feature imported
+[2026-04-18 01:02:27] librosa.feature imported
+[2026-04-18 01:02:27] soundfile imported
+[2026-04-18 01:02:27] pickle imported
+[2026-04-18 01:02:27] soundfile imported
+[2026-04-18 01:02:27] Starting sklearn import...
+[2026-04-18 01:02:27] pickle imported
+[2026-04-18 01:02:27] soundfile imported
+[2026-04-18 01:02:27] Starting sklearn import...
+[2026-04-18 01:02:27] pickle imported
+[2026-04-18 01:02:27] Starting sklearn import...
+[2026-04-18 01:02:27] pandas imported
+[2026-04-18 01:02:27] librosa.feature imported
+[2026-04-18 01:02:27] soundfile imported
+[2026-04-18 01:02:27] pickle imported
+[2026-04-18 01:02:27] Starting sklearn import...
+[2026-04-18 01:02:27] pandas imported
+[2026-04-18 01:02:27] librosa.feature imported
+[2026-04-18 01:02:27] soundfile imported
+[2026-04-18 01:02:27] pickle imported
+[2026-04-18 01:02:27] Starting sklearn import...
+[2026-04-18 01:02:29] sklearn.naive_bayes imported
+[2026-04-18 01:02:29] sklearn.naive_bayes imported
+[2026-04-18 01:02:29] sklearn.naive_bayes imported
+[2026-04-18 01:02:29] sklearn.naive_bayes imported
+[2026-04-18 01:02:29] sklearn.naive_bayes imported
+[2026-04-18 14:47:09] Starting imports...
+[2026-04-18 14:47:09] numpy imported
+[2026-04-18 14:47:11] pandas imported
+[2026-04-18 14:47:11] librosa.feature imported
+[2026-04-18 14:47:11] soundfile imported
+[2026-04-18 14:47:11] pickle imported
+[2026-04-18 14:47:11] Starting sklearn import...
+[2026-04-18 14:47:15] sklearn.naive_bayes imported
+[2026-04-18 14:47:17] Starting imports...
+[2026-04-18 14:47:17] numpy imported
+[2026-04-18 14:47:18] pandas imported
+[2026-04-18 14:47:18] librosa.feature imported
+[2026-04-18 14:47:18] soundfile imported
+[2026-04-18 14:47:18] pickle imported
+[2026-04-18 14:47:18] Starting sklearn import...
+[2026-04-18 14:47:21] sklearn.naive_bayes imported
+[2026-04-18 14:59:20] Starting imports...
+[2026-04-18 14:59:20] numpy imported
+[2026-04-18 14:59:23] pandas imported
+[2026-04-18 14:59:23] librosa.feature imported
+[2026-04-18 14:59:23] soundfile imported
+[2026-04-18 14:59:23] pickle imported
+[2026-04-18 14:59:23] Starting sklearn import...
+[2026-04-18 14:59:27] sklearn.naive_bayes imported
+[2026-04-18 15:00:42] Starting imports...
+[2026-04-18 15:00:42] numpy imported
+[2026-04-18 15:00:43] pandas imported
+[2026-04-18 15:00:43] librosa.feature imported
+[2026-04-18 15:00:43] soundfile imported
+[2026-04-18 15:00:43] pickle imported
+[2026-04-18 15:00:43] Starting sklearn import...
+[2026-04-18 15:00:47] sklearn.naive_bayes imported
+[2026-04-18 15:00:49] Starting imports...
+[2026-04-18 15:00:49] numpy imported
+[2026-04-18 15:00:51] pandas imported
+[2026-04-18 15:00:51] librosa.feature imported
+[2026-04-18 15:00:51] soundfile imported
+[2026-04-18 15:00:51] pickle imported
+[2026-04-18 15:00:51] Starting sklearn import...
+[2026-04-18 15:00:53] sklearn.naive_bayes imported
+[2026-04-18 15:01:11] Starting imports...
+[2026-04-18 15:01:12] numpy imported
+[2026-04-18 15:01:13] pandas imported
+[2026-04-18 15:01:13] librosa.feature imported
+[2026-04-18 15:01:13] soundfile imported
+[2026-04-18 15:01:13] pickle imported
+[2026-04-18 15:01:13] Starting sklearn import...
+[2026-04-18 15:01:16] sklearn.naive_bayes imported
+[2026-04-18 15:02:11] Starting imports...
+[2026-04-18 15:02:11] numpy imported
+[2026-04-18 15:02:12] pandas imported
+[2026-04-18 15:02:12] librosa.feature imported
+[2026-04-18 15:02:12] soundfile imported
+[2026-04-18 15:02:12] pickle imported
+[2026-04-18 15:02:12] Starting sklearn import...
+[2026-04-18 15:02:15] sklearn.naive_bayes imported
+[2026-04-18 15:02:30] Starting imports...
+[2026-04-18 15:02:30] numpy imported
+[2026-04-18 15:02:31] pandas imported
+[2026-04-18 15:02:31] librosa.feature imported
+[2026-04-18 15:02:31] soundfile imported
+[2026-04-18 15:02:31] pickle imported
+[2026-04-18 15:02:31] Starting sklearn import...
+[2026-04-18 15:02:33] sklearn.naive_bayes imported
+[2026-04-18 15:02:34] Starting imports...
+[2026-04-18 15:02:34] numpy imported
+[2026-04-18 15:02:35] pandas imported
+[2026-04-18 15:02:35] librosa.feature imported
+[2026-04-18 15:02:35] soundfile imported
+[2026-04-18 15:02:35] pickle imported
+[2026-04-18 15:02:35] Starting sklearn import...
+[2026-04-18 15:02:38] sklearn.naive_bayes imported
+[2026-04-18 15:07:49] Starting imports...
+[2026-04-18 15:07:49] numpy imported
+[2026-04-18 15:07:50] pandas imported
+[2026-04-18 15:07:50] librosa.feature imported
+[2026-04-18 15:07:50] soundfile imported
+[2026-04-18 15:07:50] pickle imported
+[2026-04-18 15:07:50] Starting sklearn import...
+[2026-04-18 15:07:51] sklearn.naive_bayes imported
+[2026-04-18 15:07:52] Starting imports...
+[2026-04-18 15:07:52] numpy imported
+[2026-04-18 15:07:53] pandas imported
+[2026-04-18 15:07:53] librosa.feature imported
+[2026-04-18 15:07:53] soundfile imported
+[2026-04-18 15:07:53] pickle imported
+[2026-04-18 15:07:53] Starting sklearn import...
+[2026-04-18 15:07:55] sklearn.naive_bayes imported
+[2026-04-18 15:08:34] Starting imports...
+[2026-04-18 15:08:34] Starting imports...
+[2026-04-18 15:08:34] numpy imported
+[2026-04-18 15:08:34] numpy imported
+[2026-04-18 15:08:36] pandas imported
+[2026-04-18 15:08:36] librosa.feature imported
+[2026-04-18 15:08:36] pandas imported
+[2026-04-18 15:08:36] librosa.feature imported
+[2026-04-18 15:08:36] soundfile imported
+[2026-04-18 15:08:36] pickle imported
+[2026-04-18 15:08:36] Starting sklearn import...
+[2026-04-18 15:08:36] soundfile imported
+[2026-04-18 15:08:36] pickle imported
+[2026-04-18 15:08:36] Starting sklearn import...
+[2026-04-18 15:08:39] sklearn.naive_bayes imported
+[2026-04-18 15:08:39] sklearn.naive_bayes imported
+[2026-04-18 15:09:34] Starting imports...
+[2026-04-18 15:09:34] numpy imported
+[2026-04-18 15:09:34] pandas imported
+[2026-04-18 15:09:34] librosa.feature imported
+[2026-04-18 15:09:34] soundfile imported
+[2026-04-18 15:09:34] pickle imported
+[2026-04-18 15:09:34] Starting sklearn import...
+[2026-04-18 15:09:37] sklearn.naive_bayes imported
+[2026-04-18 15:09:38] Starting imports...
+[2026-04-18 15:09:39] numpy imported
+[2026-04-18 15:09:40] pandas imported
+[2026-04-18 15:09:40] librosa.feature imported
+[2026-04-18 15:09:40] soundfile imported
+[2026-04-18 15:09:40] pickle imported
+[2026-04-18 15:09:40] Starting sklearn import...
+[2026-04-18 15:09:42] sklearn.naive_bayes imported
+[2026-04-18 15:14:01] Starting imports...
+[2026-04-18 15:14:01] numpy imported
+[2026-04-18 15:14:02] pandas imported
+[2026-04-18 15:14:02] librosa.feature imported
+[2026-04-18 15:14:02] soundfile imported
+[2026-04-18 15:14:02] pickle imported
+[2026-04-18 15:14:02] Starting sklearn import...
+[2026-04-18 15:14:04] sklearn.naive_bayes imported
+[2026-04-18 15:14:05] Starting imports...
+[2026-04-18 15:14:05] numpy imported
+[2026-04-18 15:14:06] pandas imported
+[2026-04-18 15:14:06] librosa.feature imported
+[2026-04-18 15:14:06] soundfile imported
+[2026-04-18 15:14:06] pickle imported
+[2026-04-18 15:14:06] Starting sklearn import...
+[2026-04-18 15:14:09] sklearn.naive_bayes imported
+[2026-04-18 15:15:11] Starting imports...
+[2026-04-18 15:15:11] numpy imported
+[2026-04-18 15:15:12] pandas imported
+[2026-04-18 15:15:12] librosa.feature imported
+[2026-04-18 15:15:12] soundfile imported
+[2026-04-18 15:15:12] pickle imported
+[2026-04-18 15:15:12] Starting sklearn import...
+[2026-04-18 15:15:15] sklearn.naive_bayes imported
+[2026-04-18 15:16:32] Starting imports...
+[2026-04-18 15:16:32] numpy imported
+[2026-04-18 15:16:33] pandas imported
+[2026-04-18 15:16:33] librosa.feature imported
+[2026-04-18 15:16:33] soundfile imported
+[2026-04-18 15:16:33] pickle imported
+[2026-04-18 15:16:33] Starting sklearn import...
+[2026-04-18 15:16:35] sklearn.naive_bayes imported
+[2026-04-18 15:16:39] Starting imports...
+[2026-04-18 15:16:39] numpy imported
+[2026-04-18 15:16:40] pandas imported
+[2026-04-18 15:16:40] librosa.feature imported
+[2026-04-18 15:16:40] soundfile imported
+[2026-04-18 15:16:40] pickle imported
+[2026-04-18 15:16:40] Starting sklearn import...
+[2026-04-18 15:16:42] sklearn.naive_bayes imported
+[2026-04-18 15:17:02] Starting imports...
+[2026-04-18 15:17:02] numpy imported
+[2026-04-18 15:17:03] pandas imported
+[2026-04-18 15:17:03] librosa.feature imported
+[2026-04-18 15:17:03] soundfile imported
+[2026-04-18 15:17:03] pickle imported
+[2026-04-18 15:17:03] Starting sklearn import...
+[2026-04-18 15:17:04] sklearn.naive_bayes imported
+[2026-04-18 15:17:20] Starting imports...
+[2026-04-18 15:17:20] numpy imported
+[2026-04-18 15:17:21] pandas imported
+[2026-04-18 15:17:21] librosa.feature imported
+[2026-04-18 15:17:21] soundfile imported
+[2026-04-18 15:17:21] pickle imported
+[2026-04-18 15:17:21] Starting sklearn import...
+[2026-04-18 15:17:23] sklearn.naive_bayes imported
+[2026-04-18 15:17:47] Starting imports...
+[2026-04-18 15:17:47] numpy imported
+[2026-04-18 15:17:48] pandas imported
+[2026-04-18 15:17:48] librosa.feature imported
+[2026-04-18 15:17:48] soundfile imported
+[2026-04-18 15:17:48] pickle imported
+[2026-04-18 15:17:48] Starting sklearn import...
+[2026-04-18 15:17:50] sklearn.naive_bayes imported
+[2026-04-18 15:28:06] Starting imports...
+[2026-04-18 15:28:06] numpy imported
+[2026-04-18 15:28:07] pandas imported
+[2026-04-18 15:28:07] librosa.feature imported
+[2026-04-18 15:28:07] soundfile imported
+[2026-04-18 15:28:07] pickle imported
+[2026-04-18 15:28:07] Starting sklearn import...
+[2026-04-18 15:28:09] sklearn.naive_bayes imported
+[2026-04-18 15:28:35] Starting imports...
+[2026-04-18 15:28:35] numpy imported
+[2026-04-18 15:28:36] pandas imported
+[2026-04-18 15:28:36] librosa.feature imported
+[2026-04-18 15:28:36] soundfile imported
+[2026-04-18 15:28:36] pickle imported
+[2026-04-18 15:28:36] Starting sklearn import...
+[2026-04-18 15:28:38] sklearn.naive_bayes imported
+[2026-04-18 15:28:41] Starting imports...
+[2026-04-18 15:28:41] numpy imported
+[2026-04-18 15:28:42] pandas imported
+[2026-04-18 15:28:42] librosa.feature imported
+[2026-04-18 15:28:42] soundfile imported
+[2026-04-18 15:28:42] pickle imported
+[2026-04-18 15:28:42] Starting sklearn import...
+[2026-04-18 15:28:44] sklearn.naive_bayes imported
+[2026-04-18 15:28:52] Starting imports...
+[2026-04-18 15:28:52] numpy imported
+[2026-04-18 15:28:53] pandas imported
+[2026-04-18 15:28:53] librosa.feature imported
+[2026-04-18 15:28:53] soundfile imported
+[2026-04-18 15:28:53] pickle imported
+[2026-04-18 15:28:53] Starting sklearn import...
+[2026-04-18 15:29:19] Starting imports...
+[2026-04-18 15:29:19] numpy imported
+[2026-04-18 15:29:20] pandas imported
+[2026-04-18 15:29:20] librosa.feature imported
+[2026-04-18 15:29:20] soundfile imported
+[2026-04-18 15:29:20] pickle imported
+[2026-04-18 15:29:20] Starting sklearn import...
+[2026-04-18 15:29:22] sklearn.naive_bayes imported
+[2026-04-18 15:29:23] Starting imports...
+[2026-04-18 15:29:23] numpy imported
+[2026-04-18 15:29:24] pandas imported
+[2026-04-18 15:29:24] librosa.feature imported
+[2026-04-18 15:29:24] soundfile imported
+[2026-04-18 15:29:24] pickle imported
+[2026-04-18 15:29:24] Starting sklearn import...
+[2026-04-18 15:29:25] sklearn.naive_bayes imported
+[2026-04-18 16:12:35] Starting imports...
+[2026-04-18 16:12:35] numpy imported
+[2026-04-18 16:12:36] pandas imported
+[2026-04-18 16:12:36] librosa.feature imported
+[2026-04-18 16:12:36] soundfile imported
+[2026-04-18 16:12:36] pickle imported
+[2026-04-18 16:12:36] Starting sklearn import...
+[2026-04-18 16:12:38] sklearn.naive_bayes imported
+[2026-04-18 16:15:04] Starting imports...
+[2026-04-18 16:15:05] numpy imported
+[2026-04-18 16:15:06] pandas imported
+[2026-04-18 16:15:06] librosa.feature imported
+[2026-04-18 16:15:06] soundfile imported
+[2026-04-18 16:15:06] pickle imported
+[2026-04-18 16:15:06] Starting sklearn import...
+[2026-04-18 16:15:08] sklearn.naive_bayes imported
+[2026-04-18 16:15:12] Starting imports...
+[2026-04-18 16:15:12] numpy imported
+[2026-04-18 16:15:13] pandas imported
+[2026-04-18 16:15:13] librosa.feature imported
+[2026-04-18 16:15:13] soundfile imported
+[2026-04-18 16:15:13] pickle imported
+[2026-04-18 16:15:13] Starting sklearn import...
+[2026-04-18 16:15:14] sklearn.naive_bayes imported
+[2026-04-18 16:15:53] Starting imports...
+[2026-04-18 16:15:54] numpy imported
+[2026-04-18 16:15:54] pandas imported
+[2026-04-18 16:15:54] librosa.feature imported
+[2026-04-18 16:15:54] soundfile imported
+[2026-04-18 16:15:54] pickle imported
+[2026-04-18 16:15:54] Starting sklearn import...
+[2026-04-18 16:15:56] sklearn.naive_bayes imported
+[2026-04-18 16:15:57] Starting imports...
+[2026-04-18 16:15:57] numpy imported
+[2026-04-18 16:15:57] pandas imported
+[2026-04-18 16:15:57] librosa.feature imported
+[2026-04-18 16:15:57] soundfile imported
+[2026-04-18 16:15:57] pickle imported
+[2026-04-18 16:15:57] Starting sklearn import...
+[2026-04-18 16:15:59] sklearn.naive_bayes imported
+[2026-04-18 16:16:20] Starting analysis for: xc27060.flac
+[2026-04-18 16:16:20] Starting audio load: uploads\xc27060.flac
+[2026-04-18 16:16:24] Starting imports...
+[2026-04-18 16:16:24] numpy imported
+[2026-04-18 16:16:25] pandas imported
+[2026-04-18 16:16:25] librosa.feature imported
+[2026-04-18 16:16:25] soundfile imported
+[2026-04-18 16:16:25] pickle imported
+[2026-04-18 16:16:25] Starting sklearn import...
+[2026-04-18 16:16:28] sklearn.naive_bayes imported
+[2026-04-18 16:16:28] Starting analysis for: xc27060.flac
+[2026-04-18 16:16:28] Starting audio load: uploads\xc27060.flac
+[2026-04-18 16:16:30] Starting imports...
+[2026-04-18 16:16:30] numpy imported
+[2026-04-18 16:16:31] pandas imported
+[2026-04-18 16:16:31] librosa.feature imported
+[2026-04-18 16:16:31] soundfile imported
+[2026-04-18 16:16:31] pickle imported
+[2026-04-18 16:16:31] Starting sklearn import...
+[2026-04-18 16:16:32] sklearn.naive_bayes imported
+[2026-04-18 16:16:35] Starting analysis for: xc27060.flac
+[2026-04-18 16:16:35] Starting audio load: uploads\xc27060.flac
+[2026-04-18 16:16:37] Starting imports...
+[2026-04-18 16:16:37] numpy imported
+[2026-04-18 16:16:38] pandas imported
+[2026-04-18 16:16:38] librosa.feature imported
+[2026-04-18 16:16:38] soundfile imported
+[2026-04-18 16:16:38] pickle imported
+[2026-04-18 16:16:38] Starting sklearn import...
+[2026-04-18 16:16:39] sklearn.naive_bayes imported
+[2026-04-18 16:16:39] Starting analysis for: xc27060.flac
+[2026-04-18 16:16:39] Starting audio load: uploads\xc27060.flac
+[2026-04-18 16:16:42] Starting imports...
+[2026-04-18 16:16:42] numpy imported
+[2026-04-18 16:16:42] pandas imported
+[2026-04-18 16:16:42] librosa.feature imported
+[2026-04-18 16:16:42] soundfile imported
+[2026-04-18 16:16:42] pickle imported
+[2026-04-18 16:16:42] Starting sklearn import...
+[2026-04-18 16:16:44] sklearn.naive_bayes imported
+[2026-04-18 16:16:47] Starting analysis for: xc27060.flac
+[2026-04-18 16:16:47] Starting audio load: uploads\xc27060.flac
+[2026-04-18 16:16:50] Starting imports...
+[2026-04-18 16:16:50] numpy imported
+[2026-04-18 16:16:51] pandas imported
+[2026-04-18 16:16:51] librosa.feature imported
+[2026-04-18 16:16:51] soundfile imported
+[2026-04-18 16:16:51] pickle imported
+[2026-04-18 16:16:51] Starting sklearn import...
+[2026-04-18 16:16:52] sklearn.naive_bayes imported
+[2026-04-18 16:17:01] Starting analysis for: xc27060.flac
+[2026-04-18 16:17:01] Starting audio load: uploads\xc27060.flac
+[2026-04-18 16:17:05] Starting imports...
+[2026-04-18 16:17:05] numpy imported
+[2026-04-18 16:17:06] pandas imported
+[2026-04-18 16:17:06] librosa.feature imported
+[2026-04-18 16:17:06] soundfile imported
+[2026-04-18 16:17:06] pickle imported
+[2026-04-18 16:17:06] Starting sklearn import...
+[2026-04-18 16:17:09] sklearn.naive_bayes imported
+[2026-04-18 16:17:09] Starting analysis for: xc27060.flac
+[2026-04-18 16:17:09] Starting audio load: uploads\xc27060.flac
+[2026-04-18 16:17:12] Starting imports...
+[2026-04-18 16:17:13] numpy imported
+[2026-04-18 16:17:13] pandas imported
+[2026-04-18 16:17:13] librosa.feature imported
+[2026-04-18 16:17:13] soundfile imported
+[2026-04-18 16:17:13] pickle imported
+[2026-04-18 16:17:13] Starting sklearn import...
+[2026-04-18 16:17:14] sklearn.naive_bayes imported
+[2026-04-18 16:17:24] Starting analysis for: xc27060.flac
+[2026-04-18 16:17:24] Starting audio load: uploads\xc27060.flac
+[2026-04-18 16:17:27] Starting imports...
+[2026-04-18 16:17:27] numpy imported
+[2026-04-18 16:17:28] pandas imported
+[2026-04-18 16:17:28] librosa.feature imported
+[2026-04-18 16:17:28] soundfile imported
+[2026-04-18 16:17:28] pickle imported
+[2026-04-18 16:17:28] Starting sklearn import...
+[2026-04-18 16:17:29] sklearn.naive_bayes imported
+[2026-04-18 16:17:29] Starting analysis for: xc27060.flac
+[2026-04-18 16:17:29] Starting audio load: uploads\xc27060.flac
+[2026-04-18 16:17:33] Audio loaded successfully: 1613947 samples at 22050 Hz
+[2026-04-18 16:17:34] Analysis successful for: xc27060.flac
+[2026-04-18 16:18:51] Starting analysis for: xc29766.flac
+[2026-04-18 16:18:51] Starting audio load: uploads\xc29766.flac
+[2026-04-18 16:18:51] Audio loaded successfully: 1169851 samples at 22050 Hz
+[2026-04-18 16:18:53] Analysis successful for: xc29766.flac
+[2026-04-18 16:20:08] Starting analysis for: xc27060.flac
+[2026-04-18 16:20:08] Starting audio load: uploads\xc27060.flac
+[2026-04-18 16:20:08] Audio loaded successfully: 1613947 samples at 22050 Hz
+[2026-04-18 16:20:10] Analysis successful for: xc27060.flac
+[2026-04-18 16:20:28] Starting analysis for: xc42224.flac
+[2026-04-18 16:20:28] Starting audio load: uploads\xc42224.flac
+[2026-04-18 16:20:28] Audio loaded successfully: 596155 samples at 22050 Hz
+[2026-04-18 16:20:29] Analysis successful for: xc42224.flac
+[2026-04-18 16:22:17] Starting analysis for: xc69792.flac
+[2026-04-18 16:22:17] Starting audio load: uploads\xc69792.flac
+[2026-04-18 16:22:17] Audio loaded successfully: 753047 samples at 22050 Hz
+[2026-04-18 16:22:20] Starting imports...
+[2026-04-18 16:22:21] numpy imported
+[2026-04-18 16:22:22] pandas imported
+[2026-04-18 16:22:22] librosa.feature imported
+[2026-04-18 16:22:22] soundfile imported
+[2026-04-18 16:22:22] pickle imported
+[2026-04-18 16:22:22] Starting sklearn import...
+[2026-04-18 16:22:24] sklearn.naive_bayes imported
+[2026-04-18 16:22:24] Starting analysis for: xc69792.flac
+[2026-04-18 16:22:24] Starting audio load: uploads\xc69792.flac
+[2026-04-18 16:22:28] Audio loaded successfully: 753047 samples at 22050 Hz
+[2026-04-18 16:22:29] Analysis successful for: xc69792.flac
+[2026-04-18 16:24:42] Starting analysis for: xc157331.flac
+[2026-04-18 16:24:42] Starting audio load: uploads\xc157331.flac
+[2026-04-18 16:24:42] Audio loaded successfully: 5524843 samples at 22050 Hz
+[2026-04-18 16:24:49] Analysis successful for: xc157331.flac

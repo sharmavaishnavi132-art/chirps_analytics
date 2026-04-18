@@ -1,0 +1,366 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard | Chirps AI{% endblock %}
+
+{% block css %}
+<style>
+/* ==========================================================================
+   Modern Dashboard CSS
+   ========================================================================== */
+.dashboard-page {
+    padding: 3rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.dashboard-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.btn-new {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.btn-new:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px var(--accent-glow);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(14, 165, 233, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    color: var(--primary);
+    box-shadow: inset 0 0 15px rgba(14, 165, 233, 0.2);
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-value {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.2rem;
+    line-height: 1;
+}
+
+.stat-label {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.section-heading {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.species-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.species-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.species-card:hover {
+    background: rgba(14, 165, 233, 0.05);
+    border-color: rgba(14, 165, 233, 0.3);
+}
+
+.species-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.species-count {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.history-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 1.2rem 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+td {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.95rem;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 99px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: rgba(14, 165, 233, 0.15);
+    color: var(--primary);
+    border: 1px solid rgba(14, 165, 233, 0.3);
+}
+
+.conf-cell {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.conf-value {
+    font-weight: 600;
+    width: 50px;
+}
+
+.conf-track {
+    width: 80px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.conf-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 3px;
+}
+
+.date-time {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 0.2rem;
+}
+
+.filename {
+    font-family: monospace;
+    color: var(--text-muted);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+    <div class="dashboard-header">
+        <div>
+            <h1 class="dashboard-title">Dashboard Overview</h1>
+            <p class="dashboard-subtitle">Welcome back, <strong>{{ session.get('user_name', 'Explorer') }}</strong>. Track your bird classification history.</p>
+        </div>
+        <a href="{{ url_for('classification') }}" class="btn-new">
+            <span>+</span> New Analysis
+        </a>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="stats-grid">
+        <div class="stat-card glass">
+            <div class="stat-icon">📊</div>
+            <div class="stat-info">
+                <div class="stat-value">{{ total_count|default(0) }}</div>
+                <div class="stat-label">Total Analyzed</div>
+            </div>
+        </div>
+        <div class="stat-card glass">
+            <div class="stat-icon">🐦</div>
+            <div class="stat-info">
+                <div class="stat-value">{{ unique_species|default(0) }}</div>
+                <div class="stat-label">Unique Species</div>
+            </div>
+        </div>
+        <div class="stat-card glass">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-info">
+                <div class="stat-value">{{ (avg_confidence|default(0))|round(1) }}%</div>
+                <div class="stat-label">Avg. Confidence</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Species Distribution -->
+    <h2 class="section-heading"><span>🧬</span> Species Discovered</h2>
+    {% if species_counts %}
+    <div class="species-grid">
+        {% for species, count in species_counts.items() %}
+        <div class="species-card">
+            <div class="species-name">{{ species }}</div>
+            <div class="species-count">{{ count }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="glass empty-state" style="margin-bottom: 3rem; border-radius: var(--radius-lg);">
+        <div class="empty-icon">🌱</div>
+        <h3 style="margin-bottom: 0.5rem;">No species data yet</h3>
+        <p style="color: var(--text-muted);">Start predicting bird calls to build your collection.</p>
+    </div>
+    {% endif %}
+
+    <!-- History Table -->
+    <h2 class="section-heading"><span>📋</span> Recent Classifications</h2>
+    <div class="history-card glass">
+        {% if classifications %}
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>File</th>
+                        <th>Identified As</th>
+                        <th>Confidence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in classifications %}
+                    <tr>
+                        <td>
+                            <div>{{ c.timestamp.strftime('%b %d, %Y') if c.timestamp else 'N/A' }}</div>
+                            <div class="date-time">{{ c.timestamp.strftime('%I:%M %p') if c.timestamp else '' }}</div>
+                        </td>
+                        <td><span class="filename">{{ c.filename }}</span></td>
+                        <td><span class="badge">{{ c.predicted_species }}</span></td>
+                        <td>
+                            <div class="conf-cell">
+                                <span class="conf-value">{{ c.confidence|round(1) }}%</span>
+                                <div class="conf-track">
+                                    <div class="conf-fill" style="width: {{ c.confidence }}%;"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <div class="empty-icon">📁</div>
+            <h3 style="margin-bottom: 0.5rem;">No history found</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Upload an audio file to see your history here.</p>
+            <a href="{{ url_for('classification') }}" class="btn-new">Get Started</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

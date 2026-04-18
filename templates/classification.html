@@ -1,264 +1,394 @@
 {% extends "layout.html" %}
 
-{% block title %}Bird Classification - AI{% endblock %}
+{% block title %}Identify Species | Chirps AI{% endblock %}
 
 {% block css %}
 <style>
-    .classification-container {
-        max-width: 900px;
-        margin: 40px auto;
-        padding: 20px;
-    }
+/* ==========================================================================
+   Modern Bird Classification CSS
+   ========================================================================== */
+.classification-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1rem;
+    flex: 1;
+}
 
-    .upload-box {
-        text-align: center;
-        padding: 50px;
-        border: 2px dashed rgba(56, 189, 248, 0.4);
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.03);
-        transition: 0.3s;
-        cursor: pointer;
-    }
+.auth-card {
+    width: 100%;
+    max-width: 600px;
+    padding: 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-    .upload-box:hover {
-        border-color: #38bdf8;
-        background: rgba(56, 189, 248, 0.05);
-    }
+.auth-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+}
 
-    .upload-icon {
-        font-size: 3rem;
-        color: #38bdf8;
-        margin-bottom: 15px;
-    }
+.page-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #fff 20%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-    .btn-analyze {
-        background: linear-gradient(135deg, #38bdf8, #2563eb);
-        color: white;
-        border: none;
-        padding: 12px 30px;
-        border-radius: 30px;
-        font-weight: 600;
-        margin-top: 20px;
-        cursor: pointer;
-        transition: 0.3s;
-        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-    }
+.page-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+}
 
-    .btn-analyze:hover {
-        transform: scale(1.05);
-        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-    }
+.upload-dropzone {
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.2);
+    position: relative;
+    margin-bottom: 1.5rem;
+}
 
-    .results-card {
-        margin-top: 40px;
-        animation: fadeIn 0.8s ease-out;
-    }
+.upload-dropzone:hover, .upload-dropzone.dragover {
+    border-color: var(--primary);
+    background: rgba(14, 165, 233, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px var(--primary-glow);
+}
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+.upload-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    filter: drop-shadow(0 0 10px var(--primary-glow));
+    transition: transform 0.3s ease;
+}
 
-    .species-header {
-        text-align: center;
-        margin-bottom: 30px;
-    }
+.upload-dropzone:hover .upload-icon {
+    transform: scale(1.1) rotate(-5deg);
+}
 
-    .species-name {
-        font-size: 3.5rem;
-        font-weight: 700;
-        background: linear-gradient(to right, #38bdf8, #818cf8);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-    }
+.upload-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
 
-    .metrics-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-        margin-bottom: 30px;
-    }
+.upload-hint {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
 
-    .metric-card {
-        text-align: center;
-        padding: 30px;
-    }
+#fileName {
+    margin-top: 1rem;
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 0.95rem;
+    word-break: break-all;
+}
 
-    .confidence-circle {
-        position: relative;
-        width: 150px;
-        height: 150px;
-        margin: 0 auto 15px;
-    }
+.btn-submit {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px var(--primary-glow);
+    transition: all 0.3s ease;
+    margin-bottom: 2rem;
+}
 
-    .confidence-value {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 1.8rem;
-        font-weight: 700;
-    }
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px var(--accent-glow);
+}
 
-    .prob-breakdown {
-        background: rgba(0, 0, 0, 0.2);
-        padding: 20px;
-        border-radius: 15px;
-    }
+/* Results Section */
+.results-wrapper {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+    animation: fadeUp 0.6s ease forwards;
+}
 
-    .prob-item {
-        margin-bottom: 15px;
-    }
+.predicted-species {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1.5rem;
+    text-transform: capitalize;
+}
 
-    .prob-label {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 5px;
-        font-size: 0.9rem;
-        color: #ccc;
-    }
+.confidence-ring {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 0 auto 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
+    border: 4px solid var(--primary);
+    box-shadow: 0 0 30px var(--primary-glow), inset 0 0 20px rgba(14, 165, 233, 0.2);
+    position: relative;
+}
 
-    .prob-bar-bg {
-        height: 8px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 4px;
-        overflow: hidden;
-    }
+.confidence-ring::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: rotate 15s linear infinite;
+}
 
-    .prob-bar-fill {
-        height: 100%;
-        background: linear-gradient(to right, #38bdf8, #2563eb);
-        border-radius: 4px;
-        width: 0;
-        transition: width 1s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-    }
+.confidence-value {
+    font-size: 2.2rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    line-height: 1;
+}
 
-    .audio-player {
-        width: 100%;
-        margin-top: 20px;
-        filter: invert(100%) hue-rotate(180deg) brightness(1.5);
-    }
+.confidence-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
 
-    .loading-overlay {
-        display: none;
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(15, 23, 42, 0.8);
-        backdrop-filter: blur(5px);
-        z-index: 2000;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
+.matches-list {
+    text-align: left;
+}
 
-    .spinner {
-        width: 50px;
-        height: 50px;
-        border: 5px solid rgba(56, 189, 248, 0.3);
-        border-top-color: #38bdf8;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
+.matches-heading {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
 
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
+.match-item {
+    margin-bottom: 1rem;
+}
+
+.match-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.progress-track {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 3px;
+    width: 0;
+    transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.audio-player {
+    width: 100%;
+    margin-top: 2rem;
+    border-radius: 999px;
+    filter: invert(1) hue-rotate(180deg) opacity(0.9);
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--glass-border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+.loading-text {
+    margin-top: 1.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--primary);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rotate {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container classification-container">
-    <h2 class="section-title">Bird Species Identification</h2>
+<div class="classification-page">
+    <div class="auth-card glass">
+        <h2 class="page-title">Bird Identifier AI</h2>
+        <p class="page-subtitle">Upload a bird call recording for instant AI analysis.</p>
 
-    <div class="glass">
         <form action="{{ url_for('classification') }}" method="POST" enctype="multipart/form-data" id="uploadForm">
-            <div class="upload-box" onclick="document.getElementById('fileInput').click()">
-                <div class="upload-icon">🎵</div>
-                <h3>Click to Upload Audio</h3>
-                <p>Supported formats: WAV, MP3, FLAC</p>
-                <input type="file" name="file" id="fileInput" hidden onchange="showFileName()">
-                <p id="fileName" style="margin-top: 15px; color: #38bdf8; font-weight: 500;"></p>
+            <div class="upload-dropzone" id="dropZone" tabindex="0">
+                <span class="upload-icon">🎵</span>
+                <h3 class="upload-text" id="uploadText">Drag & drop audio here</h3>
+                <p class="upload-hint">Supports WAV, MP3, FLAC (Max 10MB)</p>
+                <input type="file" name="file" id="fileInput" hidden accept=".wav,.mp3,.flac">
+                <div id="fileName"></div>
             </div>
-            <div style="text-align: center;">
-                <button type="submit" class="btn-analyze" id="analyzeBtn">Analyze Recording</button>
-            </div>
+            
+            <button type="submit" class="btn-submit" id="submitBtn">
+                Analyze Recording
+            </button>
         </form>
-    </div>
 
-    {% if results %}
-    <div class="results-card">
-        <div class="glass" style="background: rgba(255, 255, 255, 0.05);">
-            <div class="species-header">
-                <p style="color: #38bdf8; font-weight: 600; text-transform: uppercase;">Most Likely Species</p>
-                <h2 class="species-name">{{ results.predicted_species }}</h2>
+        {% if results %}
+        <div class="results-wrapper">
+            <h3 class="predicted-species">{{ results.predicted_species }}</h3>
+            
+            <div class="confidence-ring">
+                <span class="confidence-value">{{ results.confidence|round(1) }}%</span>
+                <span class="confidence-label">Match</span>
             </div>
 
-            <div class="metrics-grid">
-                <div class="metric-card glass">
-                    <div class="confidence-circle">
-                        <svg width="150" height="150" viewBox="0 0 150 150">
-                            <circle cx="75" cy="75" r="65" stroke="rgba(255,255,255,0.1)" stroke-width="10" fill="none" />
-                            <circle cx="75" cy="75" r="65" stroke="#38bdf8" stroke-width="10" fill="none" 
-                                    stroke-dasharray="408.41" stroke-dashoffset="{{ 408.41 - (408.41 * results.confidence / 100) }}" 
-                                    style="transition: stroke-dashoffset 1.5s ease-out;" />
-                        </svg>
-                        <div class="confidence-value">{{ results.confidence|round(1) }}%</div>
+            <div class="matches-list">
+                <h4 class="matches-heading">Top Similar Species</h4>
+                {% for species, prob in results.top_probabilities %}
+                <div class="match-item">
+                    <div class="match-info">
+                        <span>{{ species }}</span>
+                        <span>{{ prob }}%</span>
                     </div>
-                    <p style="color: #ccc;">Overall Confidence</p>
-                    <p style="font-size: 0.8rem; color: #888;">(Based on {{ results.num_windows }} audio windows)</p>
-                </div>
-
-                <div class="prob-breakdown glass">
-                    <h4 style="margin-bottom: 20px;">Probability Breakdown</h4>
-                    {% for species, prob in results.top_probabilities %}
-                    <div class="prob-item">
-                        <div class="prob-label">
-                            <span>{{ species }}</span>
-                            <span>{{ prob|round(1) }}%</span>
-                        </div>
-                        <div class="prob-bar-bg">
-                            <!-- <div class="prob-bar-fill" style="width: {{ prob|float }}%;"></div> -->
-                        </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" data-width="{{ prob }}%"></div>
                     </div>
-                    {% endfor %}
                 </div>
+                {% endfor %}
             </div>
 
-            <div style="margin-top: 30px; text-align: center;">
-                <h4 style="margin-bottom: 15px; color: #38bdf8;">Analyzed Recording</h4>
-                <audio controls class="audio-player">
-                    <source src="{{ results.audio_url }}" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
+            {% if results.audio_url %}
+            <audio controls class="audio-player">
+                <source src="{{ results.audio_url }}">
+            </audio>
+            {% endif %}
         </div>
+        {% endif %}
     </div>
-    {% endif %}
 </div>
 
 <div class="loading-overlay" id="loadingOverlay">
-    <div class="spinner"></div>
-    <p style="margin-top: 20px; font-size: 1.2rem; font-weight: 600;">Analyzing patterns...</p>
-    <p style="color: #888;">This may take a few seconds</p>
+    <div class="loader"></div>
+    <div class="loading-text">ANALYZING AUDIO...</div>
 </div>
 
 <script>
-function showFileName() {
-    const input = document.getElementById('fileInput');
-    const fileNameDisplay = document.getElementById('fileName');
-    if (input.files.length > 0) {
-        fileNameDisplay.textContent = "Selected: " + input.files[0].name;
-    }
-}
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileName = document.getElementById('fileName');
+    const uploadText = document.getElementById('uploadText');
+    const form = document.getElementById('uploadForm');
+    const overlay = document.getElementById('loadingOverlay');
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById('uploadForm').onsubmit = function() {
-        if (document.getElementById('fileInput').files.length > 0) {
-            document.getElementById('loadingOverlay').style.display = 'flex';
+    dropZone.addEventListener('click', () => fileInput.click());
+    
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        if (e.dataTransfer.files.length) {
+            fileInput.files = e.dataTransfer.files;
+            updateFileDisplay();
         }
-    };
-});
+    });
+
+    fileInput.addEventListener('change', updateFileDisplay);
+
+    function updateFileDisplay() {
+        if (fileInput.files.length) {
+            fileName.textContent = fileInput.files[0].name;
+            uploadText.textContent = "File selected!";
+            dropZone.style.borderColor = "var(--primary)";
+        }
+    }
+
+    form.addEventListener('submit', (e) => {
+        if (!fileInput.files.length) {
+            e.preventDefault();
+            fileName.textContent = "Please select a file first.";
+            fileName.style.color = "#ef4444";
+            setTimeout(() => fileName.textContent = "", 3000);
+            return;
+        }
+        overlay.style.display = 'flex';
+    });
+
+    // Animate progress bars on load
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            document.querySelectorAll('.progress-fill').forEach(bar => {
+                bar.style.width = bar.getAttribute('data-width');
+            });
+        }, 100);
+    });
 </script>
 {% endblock %}

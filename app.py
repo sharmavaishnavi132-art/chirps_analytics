@@ -48,6 +48,16 @@ class User(db.Model):
     email = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(100))
 
+class Classification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    filename = db.Column(db.String(100), nullable=False)
+    predicted_species = db.Column(db.String(100), nullable=False)
+    confidence = db.Column(db.Float, nullable=False)
+    timestamp = db.Column(db.DateTime, default=db.func.now())
+    
+    user = db.relationship('User', backref=db.backref('classifications', lazy=True))
+
 # Create database tables
 with app.app_context():
     db.create_all()
@@ -216,6 +226,36 @@ def classification():
 
     return render_template('classification.html', results=results)
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+@app.route('/birds')
+def birds():
+    return render_template('birds.html')
+@app.route('/dashboard')
+def dashboard():
+    # Get all classifications for the current user
+    user_classifications = Classification.query.filter_by(user_id=session.get('user_id')).order_by(Classification.timestamp.desc()).all()
+
+    # Calculate some stats
+    total_count = len(user_classifications)
+    unique_species = len(set(c.predicted_species for c in user_classifications))
+    avg_confidence = sum(c.confidence for c in user_classifications) / total_count if total_count > 0 else 0
+    
+    # Get species distribution for chart
+    species_counts = {}
+    for c in user_classifications:
+        species_counts[c.predicted_species] = species_counts.get(c.predicted_species, 0) + 1
+    
+    return render_template('dashboard.html', 
+                           classifications=user_classifications,
+                           total_count=total_count,
+                           unique_species=unique_species,
+                           avg_confidence=round(avg_confidence, 1),
+                           species_counts=species_counts)
 # Run app
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
