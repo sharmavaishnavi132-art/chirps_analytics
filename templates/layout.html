@@ -3,213 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Chirps Analytics | British Birdsong Research{% endblock %}</title>
-    <!-- Modern Typography: Inter & Outfit -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <title>Chirps Analytics | British Birdsong Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-dark: #0f172a; 
-            --bg-darker: #020617; 
-            --primary: #0ea5e9; 
-            --primary-glow: rgba(14, 165, 233, 0.4);
-            --accent: #8b5cf6; 
-            --accent-glow: rgba(139, 92, 246, 0.4);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --glass-bg: rgba(30, 41, 59, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --radius-lg: 20px;
-            --radius-md: 12px;
-            --radius-sm: 8px;
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at top center, var(--bg-dark) 0%, var(--bg-darker) 100%);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Glassmorphism Navbar */
+        :root { --forest: #1a2a1d; --gold: #c88d52; --white: #f4f7f4; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--white); overflow-x: hidden; }
+        
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--glass-border);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 8%; background: rgba(26, 42, 29, 0.9);
+            position: fixed; width: 100%; top: 0; z-index: 1000; box-sizing: border-box;
+            backdrop-filter: blur(10px); border-bottom: 1px solid rgba(200, 141, 82, 0.1);
         }
-
-        .logo {
-            font-family: 'Outfit', sans-serif;
-            color: #fff;
-            font-size: 1.5rem;
-            text-decoration: none;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(to right, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            transition: opacity 0.3s ease;
-        }
+        .logo { font-family: 'Playfair Display', serif; color: white; font-size: 1.4rem; text-decoration: none; font-weight: 700; letter-spacing: 1px; }
         
-        .logo:hover {
-            opacity: 0.8;
+        .nav-links a { 
+            color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 15px; 
+            font-size: 0.85rem; font-weight: 500; transition: 0.3s; 
         }
+        .nav-links a:hover, .nav-links a.active { color: white; }
+        .nav-links a.active { border-bottom: 2px solid var(--gold); padding-bottom: 5px; color: var(--gold); }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--text-main);
-        }
-
-        .nav-links a.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 2px;
-            box-shadow: 0 0 10px var(--primary-glow);
-        }
-
-        .btn-join {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white !important;
-            padding: 0.6rem 1.5rem;
-            border-radius: 99px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px var(--primary-glow);
-        }
-
-        .btn-join:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px var(--accent-glow);
-        }
-
-        .nav-auth {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
+        .btn-nav-gold { background: var(--gold); color: white !important; padding: 8px 20px; border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-nav-gold:hover { background: #b07a42; transform: translateY(-1px); }
         
-        .nav-auth span {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
+        .flashes { position: fixed; top: 80px; width: 100%; z-index: 2000; list-style: none; padding: 0; }
+        .alert { padding: 10px; text-align: center; color: white; font-weight: 600; font-size: 0.9rem; border-radius: 4px; margin: 0 10%; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .alert-success { background: #2a9d8f; }
+        .alert-error { background: #e63946; }
         .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-
-        /* Flashes */
-        .flashes {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            z-index: 2000;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .alert {
-            padding: 1rem 1.5rem;
-            color: white;
-            font-weight: 500;
-            border-radius: var(--radius-sm);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--glass-border);
-        }
-
-        .alert-success { border-left: 4px solid #10b981; }
-        .alert-error { border-left: 4px solid #ef4444; }
-
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
     </style>
     {% block css %}{% endblock %}
 </head>
 <body>
     <nav>
-        <a href="/" class="logo">Chirps AI</a>
+        <a href="/" class="logo">CHIRPS ANALYTICS</a>
         <div class="nav-links">
             <a href="/" class="{{ 'active' if request.path == '/' else '' }}">Explore</a>
             <a href="/about" class="{{ 'active' if request.path == '/about' else '' }}">About</a>
-            <a href="/classification" class="{{ 'active' if request.path == '/classification' else '' }}">Classification</a>
+            {% if session.get('user_id') %}
+                <a href="/dashboard" class="{{ 'active' if request.path == '/dashboard' else '' }}">Dashboard</a>
+            {% endif %}
             <a href="/birds" class="{{ 'active' if request.path == '/birds' else '' }}">Birds</a>
-            <a href="/dashboard" class="{{ 'active' if request.path == '/dashboard' else '' }}">Dashboard</a>
+            <a href="/contact" class="{{ 'active' if request.path == '/contact' else '' }}">Contact</a>
         </div>
         <div class="nav-auth">
             {% if session.get('user_id') %}
-                <span>Hello, <strong>{{ session.get('user_name') }}</strong></span>
-                <a href="/logout" style="color: #ef4444; text-decoration: none; font-size: 0.9rem; font-weight: 600; padding: 0.5rem 1rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(239, 68, 68, 0.1)'" onmouseout="this.style.background='transparent'">Logout</a>
+                <span style="color: white; font-size: 0.8rem; margin-right: 15px; opacity: 0.8;">Hi, {{ session.get('user_name') }}</span>
+                <a href="/logout" style="color: #f87171; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Logout</a>
             {% else %}
-                <a href="/login" style="color: var(--text-main); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-main)'">Log in</a>
-                <a href="/register" class="btn-join">Join Now</a>
+                <a href="/login" class="{{ 'active' if request.path == '/login' else '' }}" style="color: white; text-decoration: none; margin-right: 20px; font-size: 0.85rem;">Log in</a>
+                <a href="/register" class="btn-nav-gold">Join Now</a>
             {% endif %}
         </div>
     </nav>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul class="flashes">
-          {% for cat, msg in messages %}
-            <li class="alert alert-{{ cat }}">{{ msg }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
+      {% if messages %}<ul class="flashes">{% for cat, msg in messages %}<li class="alert alert-{{ cat }}">{{ msg }}</li>{% endfor %}</ul>{% endif %}
     {% endwith %}
 
     <main>{% block content %}{% endblock %}</main>
