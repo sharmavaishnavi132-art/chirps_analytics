@@ -8,13 +8,13 @@ import datetime
 import os
 
 def log_debug(message):
-    """Log a debug message to a file."""
+    """Log a debug message to a file and console."""
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     try:
         with open("analysis_debug.log", "a") as f:
             f.write(f"[{timestamp}] {message}\n")
-    except:
-        pass
+    except Exception as e:
+        print(f"FAILED TO WRITE TO LOG: {str(e)}")
     print(f"DEBUG: {message}")
 
 log_debug("Starting imports...")
@@ -37,14 +37,6 @@ if not os.path.exists(os.path.join(os.getcwd(), 'tmp', 'numba_cache')):
 log_debug("Starting sklearn import...")
 from sklearn import naive_bayes
 log_debug("sklearn.naive_bayes imported")
-import datetime
-
-def log_debug(message):
-    """Log a debug message to a file."""
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    with open("analysis_debug.log", "a") as f:
-        f.write(f"[{timestamp}] {message}\n")
-    print(f"DEBUG: {message}")
 
 
 

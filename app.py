@@ -1,12 +1,14 @@
 # Import required libraries
 from flask import Flask , render_template , url_for , request , redirect, flash, session
 from flask_sqlalchemy import SQLAlchemy
+from  datetime import datetime
 from werkzeug.security import generate_password_hash , check_password_hash
 from werkzeug.utils import secure_filename
 from functools import wraps
 import os
 import pickle
 import sys
+
 
 # Add the main project folder to path (so we can import prediction file)
 sys.path.append(os.path.join(os.getcwd(), 'bird_classification-main'))
@@ -54,7 +56,7 @@ class Classification(db.Model):
     filename = db.Column(db.String(100), nullable=False)
     predicted_species = db.Column(db.String(100), nullable=False)
     confidence = db.Column(db.Float, nullable=False)
-    timestamp = db.Column(db.DateTime, default=db.func.now())
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     
     user = db.relationship('User', backref=db.backref('classifications', lazy=True))
 
@@ -93,7 +95,9 @@ def login():
             session['user_name'] = user.name
             flash('Signin successful', 'success')
             return redirect(url_for('home'))
-
+        else:
+            flash('Invalid email or password', 'error')
+            return redirect(url_for('login'))
     return render_template('login.html')
 
 # Register route
@@ -218,6 +222,25 @@ def classification():
                         reverse=True
                     )[:5]
                 }
+                # Save to database
+                try:
+                    user_id = session.get('user_id')
+                    if user_id:
+                        new_classification = Classification(
+                            user_id=user_id,
+                            filename=filename,
+                            predicted_species=results['predicted_species'],
+                            confidence=results['confidence']
+                        )
+                        db.session.add(new_classification)
+                        db.session.commit()
+                        log_debug(f"SUCCESS: Saved classification to DB for user {user_id}: {filename}")
+                    else:
+                        log_debug("WARNING: No user_id in session, skipping DB save")
+                except Exception as db_e:
+                    log_debug(f"DATABASE ERROR: {str(db_e)}")
+                    db.session.rollback()
+
 
                 flash('Analysis complete!', 'success')
 
@@ -236,10 +259,11 @@ def contact():
 def birds():
     return render_template('birds.html')
 @app.route('/dashboard')
+@login_required
 def dashboard():
     # Get all classifications for the current user
-    user_classifications = Classification.query.filter_by(user_id=session.get('user_id')).order_by(Classification.timestamp.desc()).all()
-
+    user_classifications = Classification.query.filter_by(user_id=session['user_id']).order_by(Classification.timestamp.desc()).all()
+    
     # Calculate some stats
     total_count = len(user_classifications)
     unique_species = len(set(c.predicted_species for c in user_classifications))
