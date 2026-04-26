@@ -135,10 +135,9 @@ def login():
             session['user_name'] = user.name
             
             # Auto-assign admin to the official email
-            if user.email == 'hello@chirpsanalytics.com' and not user.is_admin:
+            if user.email == 'hello@chirpanalyticss.com' and not user.is_admin:
                 user.is_admin = True
                 db.session.commit()
-                
             session['is_admin'] = user.is_admin
             flash('Signin successful', 'success')
             
