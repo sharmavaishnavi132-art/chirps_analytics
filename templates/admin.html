@@ -1,0 +1,317 @@
+{% extends "layout.html" %}
+
+{% block title %}Admin Panel | Chirps AI{% endblock %}
+
+{% block css %}
+<style>
+/* ==========================================================================
+   Premium Admin Dashboard CSS
+   ========================================================================== */
+.admin-page {
+    padding: 7rem 5% 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    min-height: 100vh;
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    background: radial-gradient(circle at top right, rgba(200, 141, 82, 0.03), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(26, 42, 29, 0.03), transparent 40%);
+}
+
+.admin-header {
+    margin-bottom: 3rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 1.5rem;
+}
+
+.admin-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--forest);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.admin-subtitle {
+    color: #555;
+    font-size: 1.05rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+}
+
+.stat-card {
+    background: rgba(255,255,255,0.85);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 10px 30px rgba(26, 42, 29, 0.06);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.5);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: linear-gradient(to bottom, var(--gold), var(--forest));
+    border-radius: 12px 0 0 12px;
+}
+
+.stat-icon {
+    font-size: 2.2rem;
+    background: rgba(200,141,82,0.1);
+    width: 60px; height: 60px;
+    display: flex; justify-content: center; align-items: center;
+    border-radius: 50%;
+}
+
+.stat-info { flex: 1; }
+
+.stat-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--forest);
+    margin-bottom: 0.2rem;
+    line-height: 1;
+    font-family: 'Playfair Display', serif;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--forest);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.card-container {
+    background: rgba(255,255,255,0.9);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(26, 42, 29, 0.05);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.5);
+    margin-bottom: 3rem;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 1.2rem;
+    background: rgba(244, 247, 244, 0.9);
+    color: var(--forest);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+td {
+    padding: 1.2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+    color: #444;
+    font-size: 0.95rem;
+}
+
+tr:hover td {
+    background: rgba(200, 141, 82, 0.02);
+}
+
+.badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: rgba(200, 141, 82, 0.1);
+    color: #b07a42;
+}
+.badge-admin { 
+    background: rgba(42, 157, 143, 0.1); 
+    color: #2a9d8f; 
+}
+
+.msg-box {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-style: italic;
+    color: #666;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="admin-page">
+    <div class="admin-header">
+        <h1 class="admin-title">System Administrator</h1>
+        <p class="admin-subtitle">Monitor platform traffic, user queries, and analytical operations.</p>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="stats-grid">
+        <div class="stat-card glass">
+            <div class="stat-icon">👥</div>
+            <div class="stat-info">
+                <div class="stat-value">{{ total_users|default(0) }}</div>
+                <div class="stat-label">Registered Users</div>
+            </div>
+        </div>
+        <div class="stat-card glass">
+            <div class="stat-icon">📊</div>
+            <div class="stat-info">
+                <div class="stat-value">{{ total_classifications|default(0) }}</div>
+                <div class="stat-label">Total Predictions</div>
+            </div>
+        </div>
+        <div class="stat-card glass">
+            <div class="stat-icon">📩</div>
+            <div class="stat-info">
+                <div class="stat-value">{{ total_queries|default(0) }}</div>
+                <div class="stat-label">Contact Queries</div>
+            </div>
+        </div>
+        <div class="stat-card glass">
+            <div class="stat-icon">🌐</div>
+            <div class="stat-info">
+                <div class="stat-value">{{ total_visits|default(0) }}</div>
+                <div class="stat-label">Page Views</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Queries -->
+    <h2 class="section-heading">📫 Visitor Inquiries</h2>
+    <div class="card-container glass">
+        {% if queries %}
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for q in queries %}
+                    <tr>
+                        <td style="white-space: nowrap;">{{ q.timestamp.strftime('%Y-%m-%d %H:%M') if q.timestamp else 'N/A' }}</td>
+                        <td style="font-weight: 600;">{{ q.name }}</td>
+                        <td>{{ q.email }}</td>
+                        <td><div class="msg-box" title="{{ q.message }}">{{ q.message }}</div></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div style="padding: 2rem; text-align: center; color: #888;">No inquiries received yet.</div>
+        {% endif %}
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <!-- Recent Users -->
+        <div>
+            <h2 class="section-heading">👤 New Members</h2>
+            <div class="card-container glass">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for u in recent_users %}
+                            <tr>
+                                <td>{{ u.name }}</td>
+                                <td>{{ u.email }}</td>
+                                <td><span class="badge {{ 'badge-admin' if u.is_admin else '' }}">{{ 'Admin' if u.is_admin else 'User' }}</span></td>
+                            </tr>
+                            {% else %}
+                            <tr><td colspan="3" style="text-align: center;">No users found.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Classifications -->
+        <div>
+            <h2 class="section-heading">🌿 Recent Predictions</h2>
+            <div class="card-container glass">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Species</th>
+                                <th>Confidence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in recent_classifications %}
+                            <tr>
+                                <td>User #{{ c.user_id }}</td>
+                                <td><span class="badge">{{ c.predicted_species }}</span></td>
+                                <td style="font-weight: 600; color: var(--forest);">{{ c.confidence|round(1) }}%</td>
+                            </tr>
+                            {% else %}
+                            <tr><td colspan="3" style="text-align: center;">No classification history.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

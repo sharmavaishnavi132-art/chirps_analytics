@@ -49,6 +49,7 @@ class User(db.Model):
     name = db.Column(db.String(100))
     email = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(100))
+    is_admin = db.Column(db.Boolean, default=False)
 
 class Classification(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -60,9 +61,35 @@ class Classification(db.Model):
     
     user = db.relationship('User', backref=db.backref('classifications', lazy=True))
 
+class ContactQuery(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    email = db.Column(db.String(50))
+    message = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+class PageVisit(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    path = db.Column(db.String(200))
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+
 # Create database tables
 with app.app_context():
     db.create_all()
+
+# Track page visits globally
+@app.before_request
+def track_visits():
+    allowed_static = request.path.startswith('/static') or request.path.startswith('/uploads')
+    if not allowed_static:
+        user_id = session.get('user_id')
+        new_visit = PageVisit(path=request.path, user_id=user_id)
+        db.session.add(new_visit)
+        try:
+            db.session.commit()
+        except:
+            db.session.rollback()
 
 # Home page
 @app.route('/')
@@ -76,6 +103,19 @@ def login_required(f):
         if 'user_id' not in session:
             flash('Please login to access this page', 'error')
             return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated
+
+# Admin required decorator
+def admin_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if 'user_id' not in session:
+            flash('Please login to access this page', 'error')
+            return redirect(url_for('login'))
+        if not session.get('is_admin'):
+            flash('Admin access required.', 'error')
+            return redirect(url_for('home'))
         return f(*args, **kwargs)
     return decorated
 
@@ -93,8 +133,19 @@ def login():
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
             session['user_name'] = user.name
+            
+            # Auto-assign admin to the official email
+            if user.email == 'hello@chirpsanalytics.com' and not user.is_admin:
+                user.is_admin = True
+                db.session.commit()
+                
+            session['is_admin'] = user.is_admin
             flash('Signin successful', 'success')
-            return redirect(url_for('home'))
+            
+            if user.is_admin:
+                return redirect(url_for('admin_dashboard'))
+            else:
+                return redirect(url_for('home'))
         else:
             flash('Invalid email or password', 'error')
             return redirect(url_for('login'))
@@ -252,9 +303,48 @@ def classification():
 @app.route('/about')
 def about():
     return render_template('about.html')
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
+        if name and email and message:
+            query = ContactQuery(name=name, email=email, message=message)
+            db.session.add(query)
+            try:
+                db.session.commit()
+                flash('Your message has been sent successfully!', 'success')
+            except Exception as e:
+                db.session.rollback()
+                flash('An error occurred. Please try again.', 'error')
+        else:
+            flash('Please fill out all fields.', 'error')
+        return redirect(url_for('contact'))
     return render_template('contact.html')
+
+@app.route('/admin')
+@admin_required
+def admin_dashboard():
+    # Gather statistics
+    total_users = User.query.count()
+    total_classifications = Classification.query.count()
+    total_queries = ContactQuery.query.count()
+    total_visits = PageVisit.query.count()
+
+    # Get recent records
+    recent_users = User.query.order_by(User.id.desc()).limit(10).all()
+    recent_classifications = Classification.query.order_by(Classification.timestamp.desc()).limit(10).all()
+    queries = ContactQuery.query.order_by(ContactQuery.timestamp.desc()).all()
+
+    return render_template('admin.html', 
+                          total_users=total_users, 
+                          total_classifications=total_classifications, 
+                          total_queries=total_queries,
+                          total_visits=total_visits,
+                          recent_users=recent_users,
+                          recent_classifications=recent_classifications,
+                          queries=queries)
 # Detailed bird data
 BIRD_DETAILS = {
     'european robin': {
@@ -265,7 +355,7 @@ BIRD_DETAILS = {
         'habitat': 'Woodlands, gardens, and hedgerows.',
         'diet': 'Insects, worms, and berries.',
         'fun_fact': 'Robins are highly territorial and will defend their area aggressively against other robins.',
-        'image': 'https://images.unsplash.com/photo-1552728089-57bdde30eba3?q=80&w=1000',
+        'image': 'https://i0.wp.com/www.birdbaron.com/wp-content/uploads/2020/12/European-robin.jpg?resize=1200%2C628&ssl=1',
         'frequency': '2.0-8.5 kHz'
     },
     'song thrush': {
@@ -287,7 +377,7 @@ BIRD_DETAILS = {
         'habitat': 'Dense bushes and thickets.',
         'diet': 'Insects and berries.',
         'fun_fact': 'A male nightingale can have a repertoire of over 200 different phrases and songs.',
-        'image': 'https://images.unsplash.com/photo-1522926126624-3ef711a5a827?q=80&w=1000',
+        'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Luscinia_megarhynchos_-_Common_nightingale_-_Nachtegaal.jpg/500px-Luscinia_megarhynchos_-_Common_nightingale_-_Nachtegaal.jpg',
         'frequency': '1.0-5.5 kHz'
     },
     'great tit': {
@@ -311,7 +401,20 @@ BIRD_DETAILS = {
         'fun_fact': 'Starlings can mimic the songs of over 20 other bird species.',
         'image': 'https://images.unsplash.com/photo-1612170153139-6f881ff067e0?q=80&w=1000',
         'frequency': '0.5-8.0 kHz'
-    }
+    },
+    'blackbird': {
+    'name': 'Blackbird',
+    'scientific_name': 'Turdus merula',
+    'tag': 'Common Garden Bird',
+    'description': 'A familiar garden bird with glossy black plumage and a yellow bill. Known for its beautiful, melancholic song, often heard at dawn and dusk.',
+    'habitat': 'Gardens, parks, woodlands, and hedgerows.',
+    'diet': 'Insects, earthworms, berries, and fruit.',
+    'fun_fact': 'Blackbirds are famously bold and have adapted well to urban environments.',
+    'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Common_Blackbird_male.jpg/800px-Common_Blackbird_male.jpg',
+    'frequency': '2.0-7.5 kHz'
+}
+
+
 }
 
 @app.route('/birds')
