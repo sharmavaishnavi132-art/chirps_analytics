@@ -88,63 +88,62 @@
 <section class="birds-hero">
     <span class="accent">Species Directory</span>
     <h1 style="font-family: 'Playfair Display'; font-size: 3.5rem; margin: 10px 0;">The Avian Library</h1>
-    <div class="search-container">
-        <input type="text" class="search-bar" placeholder="Search by name or frequency...">
-        <button class="btn-main" style="padding: 15px 30px;">Filter</button>
-    </div>
+    <form action="{{ url_for('birds') }}" method="GET" class="search-container">
+        <input type="text" name="q" class="search-bar" placeholder="Search by name or scientific name..." value="{{ query }}">
+        <button type="submit" class="btn-main" style="padding: 15px 30px; border: none; cursor: pointer;">Search</button>
+    </form>
 </section>
 
-<section class="science-section">
-    <div style="flex: 1;">
-        <span class="accent" style="color: #c88d52;">The Data Science</span>
-        <h2 style="color: white; font-family: 'Playfair Display';">The Science of Sound</h2>
-        <p style="opacity: 0.8; line-height: 1.8;">Our AI doesn't just 'listen'—it visualizes. We convert audio into <b>Mel-Spectrograms</b>, allowing our neural network to identify bird species by analyzing frequency patterns over time.</p>
-    </div>
-    <div class="spectrogram-box">
-        <p style="font-size: 0.8rem; margin-bottom: 10px; color: #c88d52;">ACOUSTIC SIGNATURE EXAMPLE</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Spectrogram-of-bird-song.png" style="width: 100%; border-radius: 10px; filter: hue-rotate(180deg);">
-    </div>
-</section>
+{% if query %}
+<div style="padding: 20px 10%; background: #fdfaf7;">
+    <p>Showing results for: <strong>{{ query }}</strong></p>
+</div>
+{% endif %}
 
 <div class="birds-grid">
-    <div class="bird-card">
-        <img src="https://images.unsplash.com/photo-1552728089-57bdde30eba3?q=80&w=1000" class="bird-img">
-        <div class="card-content">
-            <span class="bird-tag">Common Forest Bird</span>
-            <h3>European Robin</h3>
-            <p style="font-size: 0.9rem; color: #777;">Famous for its vibrant orange breast and complex, flute-like melodic songs.</p>
-            <div class="stats">
-                <span><b>FREQ:</b> 2.0-8.5 kHz</span>
-                <span style="color: #c88d52;">● Identify</span>
-            </div>
-        </div>
-    </div>
+    {% if results %}
+        {% for bird in results %}
+        <div class="bird-card" onclick="toggleDetails('{{ bird.name|replace(' ', '-') }}')">
+            <img src="{{ bird.image }}" class="bird-img" alt="{{ bird.name }}">
+            <div class="card-content">
+                <span class="bird-tag">{{ bird.tag }}</span>
+                <h3>{{ bird.name }}</h3>
+                <p style="font-size: 0.8rem; color: #999; font-style: italic; margin-bottom: 10px;">{{ bird.scientific_name }}</p>
+                <p style="font-size: 0.9rem; color: #777;">{{ bird.description }}</p>
+                
+                <div id="details-{{ bird.name|replace(' ', '-') }}" style="display: none; margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ddd; font-size: 0.9rem; color: #444;">
+                    <p><strong>Habitat:</strong> {{ bird.habitat }}</p>
+                    <p><strong>Diet:</strong> {{ bird.diet }}</p>
+                    <p style="background: #fdfaf7; padding: 10px; border-radius: 8px; border-left: 4px solid #c88d52; margin-top: 10px;">
+                        <strong>Fun Fact:</strong> {{ bird.fun_fact }}
+                    </p>
+                </div>
 
-    <div class="bird-card">
-        <img src="https://images.unsplash.com/photo-1444464666168-49d633b86797?q=80&w=1000" class="bird-img">
-        <div class="card-content">
-            <span class="bird-tag">Songbird</span>
-            <h3>Song Thrush</h3>
-            <p style="font-size: 0.9rem; color: #777;">Known for repeating musical phrases, often heard in gardens and woodlands.</p>
-            <div class="stats">
-                <span><b>FREQ:</b> 1.5-6.0 kHz</span>
-                <span style="color: #c88d52;">● Identify</span>
+                <div class="stats">
+                    <span><b>FREQ:</b> {{ bird.frequency }}</span>
+                    <span style="color: #c88d52;">● View Details</span>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="bird-card">
-        <img src="https://images.unsplash.com/photo-1522926126624-3ef711a5a827?q=80&w=1000" class="bird-img">
-        <div class="card-content">
-            <span class="bird-tag">Rare Species</span>
-            <h3>Common Nightingale</h3>
-            <p style="font-size: 0.9rem; color: #777;">Renowned for being one of the most beautiful and complex singers in nature.</p>
-            <div class="stats">
-                <span><b>FREQ:</b> 1.0-5.5 kHz</span>
-                <span style="color: #c88d52;">● Identify</span>
-            </div>
+        {% endfor %}
+    {% else %}
+        <div style="grid-column: 1 / -1; text-align: center; padding: 60px;">
+            <h3 style="font-family: 'Playfair Display'; font-size: 2rem;">No birds found matching "{{ query }}"</h3>
+            <p>Try searching for common names like "Robin", "Tit", or "Starling".</p>
+            <a href="{{ url_for('birds') }}" class="btn-main" style="display: inline-block; margin-top: 20px; text-decoration: none;">View All Birds</a>
         </div>
-    </div>
+    {% endif %}
 </div>
+
+<script>
+    function toggleDetails(id) {
+        var el = document.getElementById('details-' + id);
+        if (el.style.display === 'none') {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+</script>
 
 {% endblock %}

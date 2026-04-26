@@ -255,9 +255,80 @@ def about():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+# Detailed bird data
+BIRD_DETAILS = {
+    'european robin': {
+        'name': 'European Robin',
+        'scientific_name': 'Erithacus rubecula',
+        'tag': 'Common Forest Bird',
+        'description': 'Famous for its vibrant orange breast and complex, flute-like melodic songs. It is a friendly garden visitor across Europe.',
+        'habitat': 'Woodlands, gardens, and hedgerows.',
+        'diet': 'Insects, worms, and berries.',
+        'fun_fact': 'Robins are highly territorial and will defend their area aggressively against other robins.',
+        'image': 'https://images.unsplash.com/photo-1552728089-57bdde30eba3?q=80&w=1000',
+        'frequency': '2.0-8.5 kHz'
+    },
+    'song thrush': {
+        'name': 'Song Thrush',
+        'scientific_name': 'Turdus philomelos',
+        'tag': 'Songbird',
+        'description': 'Known for repeating musical phrases, often heard in gardens and woodlands. Its song is one of the most beautiful in the avian world.',
+        'habitat': 'Forests, gardens, and parks.',
+        'diet': 'Snails, earthworms, and fruit.',
+        'fun_fact': 'The Song Thrush is famous for using a stone as an "anvil" to break open snail shells.',
+        'image': 'https://images.unsplash.com/photo-1444464666168-49d633b86797?q=80&w=1000',
+        'frequency': '1.5-6.0 kHz'
+    },
+    'common nightingale': {
+        'name': 'Common Nightingale',
+        'scientific_name': 'Luscinia megarhynchos',
+        'tag': 'Rare Species',
+        'description': 'Renowned for being one of the most beautiful and complex singers in nature. They are often heard singing at night.',
+        'habitat': 'Dense bushes and thickets.',
+        'diet': 'Insects and berries.',
+        'fun_fact': 'A male nightingale can have a repertoire of over 200 different phrases and songs.',
+        'image': 'https://images.unsplash.com/photo-1522926126624-3ef711a5a827?q=80&w=1000',
+        'frequency': '1.0-5.5 kHz'
+    },
+    'great tit': {
+        'name': 'Great Tit',
+        'scientific_name': 'Parus major',
+        'tag': 'Active Garden Bird',
+        'description': 'A large tit with a black head and white cheeks. It has a distinctive "teacher-teacher" song.',
+        'habitat': 'Woodlands, parks, and gardens.',
+        'diet': 'Seeds, nuts, and insects.',
+        'fun_fact': 'Great Tits are known for their intelligence and ability to learn new behaviors, like opening milk bottles.',
+        'image': 'https://images.unsplash.com/photo-1591584250171-0414592358fb?q=80&w=1000',
+        'frequency': '2.0-7.0 kHz'
+    },
+    'common starling': {
+        'name': 'Common Starling',
+        'scientific_name': 'Sturnus vulgaris',
+        'tag': 'Mimicry Specialist',
+        'description': 'Highly social birds known for their stunning murmurations and ability to mimic sounds, including other birds and even car alarms.',
+        'habitat': 'Urban areas, grasslands, and woodlands.',
+        'diet': 'Insects, fruits, and seeds.',
+        'fun_fact': 'Starlings can mimic the songs of over 20 other bird species.',
+        'image': 'https://images.unsplash.com/photo-1612170153139-6f881ff067e0?q=80&w=1000',
+        'frequency': '0.5-8.0 kHz'
+    }
+}
+
 @app.route('/birds')
 def birds():
-    return render_template('birds.html')
+    query = request.args.get('q', '').lower().strip()
+    results = []
+    
+    if query:
+        # Search in our detailed data
+        for key, details in BIRD_DETAILS.items():
+            if query in key or query in details['name'].lower() or query in details['scientific_name'].lower():
+                results.append(details)
+    else:
+        # Show all featured birds if no query
+        results = list(BIRD_DETAILS.values())
+        
+    return render_template('birds.html', results=results, query=query)
 @app.route('/dashboard')
 @login_required
 def dashboard():

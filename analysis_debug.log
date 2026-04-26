@@ -1328,3 +1328,27 @@
 [2026-04-20 15:23:27] Audio loaded successfully: 844992 samples at 22050 Hz
 [2026-04-20 15:23:29] Analysis successful for: xc25754.flac
 [2026-04-20 15:23:29] SUCCESS: Saved classification to DB for user 1: xc25754.flac
+[2026-04-26 17:22:15] Starting imports...
+[2026-04-26 17:22:15] numpy imported
+[2026-04-26 17:22:16] pandas imported
+[2026-04-26 17:22:16] librosa.feature imported
+[2026-04-26 17:22:16] soundfile imported
+[2026-04-26 17:22:16] pickle imported
+[2026-04-26 17:22:16] Starting sklearn import...
+[2026-04-26 17:22:18] sklearn.naive_bayes imported
+[2026-04-26 17:24:15] Starting imports...
+[2026-04-26 17:24:15] numpy imported
+[2026-04-26 17:24:16] pandas imported
+[2026-04-26 17:24:16] librosa.feature imported
+[2026-04-26 17:24:16] soundfile imported
+[2026-04-26 17:24:16] pickle imported
+[2026-04-26 17:24:16] Starting sklearn import...
+[2026-04-26 17:24:19] sklearn.naive_bayes imported
+[2026-04-26 17:24:20] Starting imports...
+[2026-04-26 17:24:20] numpy imported
+[2026-04-26 17:24:21] pandas imported
+[2026-04-26 17:24:21] librosa.feature imported
+[2026-04-26 17:24:21] soundfile imported
+[2026-04-26 17:24:21] pickle imported
+[2026-04-26 17:24:21] Starting sklearn import...
+[2026-04-26 17:24:23] sklearn.naive_bayes imported
